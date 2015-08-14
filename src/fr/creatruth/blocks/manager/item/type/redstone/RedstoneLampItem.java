@@ -14,9 +14,9 @@ import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class RedstoneLampOnItem extends PickableItem implements SpecialBase {
+public class RedstoneLampItem extends PickableItem implements SpecialBase {
 
-    public RedstoneLampOnItem(ItemStack item, Materials materials) {
+    public RedstoneLampItem(ItemStack item, Materials materials) {
         super(item, materials);
     }
 

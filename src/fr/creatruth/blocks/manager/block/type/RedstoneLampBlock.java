@@ -14,9 +14,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.block.BlockPlaceEvent;
 
-public class RedstoneLampOnBlock extends RedstoneBlock {
+public class RedstoneLampBlock extends RedstoneBlock {
 
-    public RedstoneLampOnBlock(BaseItem baseItem) {
+    public RedstoneLampBlock(BaseItem baseItem) {
         super(baseItem);
     }
 
