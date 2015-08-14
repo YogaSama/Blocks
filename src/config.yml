@@ -1,0 +1,48 @@
+#Set "true" byId to replace name item by material id.
+Item:
+    byId: false
+
+#If you want to disable sneak + right/left click by default, set to "false" CHANGE variable.
+#If you want to disable right click block info by default, set to "false" INFO variable.
+#If you want to disable plugin middle click block by default, set to "false" MIDDLE variable.
+#And, you can disable by default special blocks placement, set to "false" BLOCK variable.
+Toggle:
+    info: true
+    change: true
+    block: true
+    middle: true
+
+#List of option(s) for the /line command.
+Line:
+    #Do you want to stop the progression of the line if the first placed block is broken ?
+    onBreakOrigin: true
+    #20 ticks = 1 second.
+    delayPerBlock: 20
+    #Permission to bypass this blacklist "blocks.line.bypass" and sizeLimit.
+    sizeLimit: 20
+    blockBlackList:
+        - ANVIL
+        - GRAVEL
+        - SAND
+
+#What is default value that you want when you'll place soil with data ? (Like 60:1)
+seedsDataValue: 7
+
+#Set to "true" to allowed players to interact with dragon eggs.
+dragonEggTeleportation: false
+
+#What do you want if you type /meter command ?
+meter:
+    wand: STRING
+
+#What do you want if you type /biome wand command ?
+biome:
+    wand: BLAZE_ROD
+    maxRadius: 5
+
+#There you will be able to blacklist blocks, plugin don't will affects this list.
+blocks-blacklist:
+#    - STONE
+#    - WOOD
+#    - FURNACE
+#    - BURNING_FURNACE

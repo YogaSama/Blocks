@@ -1,0 +1,178 @@
+line:
+- '&e------------------------------------------'
+help:
+  show:
+  - Affiche l''aide de la commande "{0}"
+  biome:
+    tool:
+    - 'Vous donne l''outil des biomes.'
+    list:
+    - 'Affiche la liste des biomes.'
+    setbiome:
+    - 'Change le biome de votre &eoutil en main&f.'
+    setradius:
+    - 'Change le rayon de votre &eoutil en main&f.'
+  blocks:
+    howto:
+    - '&eComment switcher entre les blocs ?'
+    answer:
+    - '&7 Vous devez être en mode créatif avec un bloc en main, regarder en direction de l''air, vous accroupir et faire un clique droit ou gauche pour changer le data ou le type de l''item.'
+  block:
+    base:
+    - 'Vous donne un bloc.'
+    other:
+    - 'Donne un bloc au joueur spécifié.'
+    special:
+    - 'Transforme le bloc de votre main dans un format spécial.'
+    list:
+    - 'Ouvre un inventaire avec des blocs spéciaux.'
+  head:
+    own:
+    - 'Vous donne votre tête.'
+    other:
+    - 'Vous donne la tête du joueur spéficié.'
+  line:
+    default:
+    - 'Converti l''item en main en constructeur de ligne avec les paramètres par défaut.'
+    base:
+    - 'Converti l''item en main en constructeur de ligne.'
+    advanced:
+    - 'Converti l''item spécifié en constructeur de ligne.'
+    'off':
+    - 'Retire l''attribut "/line" de l''item.'
+  meter:
+  - 'Clique gauche pour définir la pos1, clique droit pour définir la pos2.'
+  toggle:
+    list:
+    - 'Affiche votre liste.'
+    other:
+    - 'Affiche les paramètres du joueur spécifié.'
+    info:
+    - 'Active / Désactive le clique droit sur les blocs pour avoir des informations.'
+    change:
+    - 'Active / Désactive le changement de data / matériaux en accroupi.'
+    middle:
+    - 'Active / Désactive le clique molette du plugin.'
+    block:
+    - 'Désactive le placement des blocs spéciaux.'
+    all:
+    - 'Active / Désactive les "toggle".'
+  vision:
+    aqua:
+    - 'Active / Désactive la vision aquatique.'
+    night:
+    - 'Active / Désactive la vision nocturne.'
+  reload:
+  - 'Recharge le plugins.'
+command:
+  biome:
+    received:
+    - 'Vous avez reçu l''''&eoutil à biome&7 !'
+    list:
+    - |-
+      Biomes valides :
+      {0}
+    setradius:
+    - 'Nouveau rayon : &3{0}'
+    setbiome:
+    - 'Nouveau biome : &e{0}'
+  block:
+    special:
+    - 'Item changé en item spécial !'
+    specialsuffix:
+    - ' (&e&oSpécial&7)'
+    received:
+    - 'Vous avez reçu l''''item &5{0}&f. {1}'
+    send:
+    - 'Vous avez donné l''''item &5{0}&f à &6{1}&f.'
+  error:
+    specialnotapply:
+    - 'Cet item ne peut pas être transformé en item spécial.'
+    noaccess:
+    - 'Vous n''avez pas accès à cette commande !'
+    use:
+    - 'Vous ne pouvez pas utiliser ce matériaux / item.'
+    notvalidmaterial:
+    - 'Matériaux non valide !'
+    helpnotfound:
+    - '&cPas d''aide trouvée.'
+    playernotfound:
+    - 'Le joueur &6{0}&c n''a pas été trouvé.'
+    state:
+    - 'Vous devez ajouter l''argument "&6on&c" ou "&6off&c".'
+  common:
+    enabled:
+    - '&aactivé'
+    disabled:
+    - '&adésactivé'
+  meter:
+    receive:
+    - 'Vous avez reçu le &emètre&7.'
+  blocks:
+    reload:
+    - '&aPlugin rechargé !'
+  head:
+    yourhead:
+    - 'Vous avez reçu votre tête.'
+    headreceived:
+    - 'Vous avez reçu la tête de &e{0}&7.'
+  vision:
+    night:
+    - 'Vision nocturne {0}&7.'
+    aqua:
+    - 'Vision aquatique {0}&7.'
+  line:
+    blacklistmat:
+    - 'Ce matériaux est blacklisté.'
+    give:
+    - '{3}'
+    - '- Line appliqué sur : &3{0}'
+    - '- Taille : &e{1}'
+    - '- Direction : &e{2}'
+    - '{3}'
+    handitem:
+    - 'Item en main'
+    validfaces:
+    - '&7Faces valides :'
+    - '&f{0}'
+    'off':
+    - 'Ligne supprimée.'
+  toggle:
+    info:
+    - 'Clique droit sur les blocs pour des informations.'
+    - '({0}&f)'
+    block:
+    - 'Placement des blocs par le plugin.'
+    - '({0}&f)'
+    change:
+    - 'Changement des items en main avec le mode accroupi.'
+    -  '({0}&f)'
+    middle:
+    - 'Avoir une copie du bloc visé avec le clique molette.'
+    - '({0}&f)'
+    list:
+    - 'Liste de vos paramètres :'
+    listother:
+    - 'Liste des paramètres de {0} :'
+    changedother:
+    - 'Toggle \"{0}\" changé pour {1} !'
+event:
+  meter:
+    info:
+    - '&4&l> &7Deuxième position définie. (&6{0}&7, &6{1}&7, &6{2}&7)'
+    - '- &7Distance :&6 {3}'
+    - '- &7Dimensions :&6 {4}&7,&6 {5}&7,&6 {6}'
+    - '- &7Nombre de blocs :&6 {7}'
+    firstclick:
+    - '&7Première position définie. (&6{0}&7, &6{1}&7, &6{2}&7)'
+    error:
+    - 'La première position doit être définie !'
+  click:
+    info:
+    - 'ID : &2{0}  &7Data : &2{1}  &7Nom : &2{2}'
+    - '&7Coords: &6{3}&7, &6{4}&7, &6{5}'
+    skull:
+    - 'ID : &2{0}  &7Data : &2{1}  &7Nom : &2{2}  &7Pseudo : &6{6}'
+    - '&7Coords : &6{3}&7, &6{4}&7, &6{5}'
+    notarget:
+    - 'Pas de cible trouvée.'

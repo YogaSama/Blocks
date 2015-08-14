@@ -1,0 +1,109 @@
+/**
+ * Blocks source,
+ * you can modify sources for personal usage.
+ *
+ * @author Yoga_Sama
+ */
+package fr.creatruth.blocks.player;
+
+import fr.creatruth.blocks.configuration.Config;
+import fr.creatruth.blocks.configuration.PlayerDataFolder;
+import fr.creatruth.blocks.messages.Message;
+import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Player;
+
+import java.io.File;
+import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.UUID;
+
+public class PlayerData {
+
+    private Map<Toggle, Boolean>    toggles;
+    private boolean                 sneak;
+    private BlockFace               lastBlockFace;
+
+    public PlayerData(UUID uuid) {
+        this.toggles = new HashMap<>();
+
+        PlayerDataFolder pdf = Config.playerDataFolder;
+        File file = pdf.getFile(uuid);
+
+        this.toggles.put(Toggle.INFO, pdf.getValue(file, Toggle.INFO, Config.isToggleInfo()));
+        this.toggles.put(Toggle.BLOCK, pdf.getValue(file, Toggle.BLOCK, Config.isToggleBlock()));
+        this.toggles.put(Toggle.MIDDLE, pdf.getValue(file, Toggle.MIDDLE, Config.isToggleMiddle()));
+        this.toggles.put(Toggle.CHANGE, pdf.getValue(file, Toggle.CHANGE, Config.isToggleChange()));
+
+        this.sneak = false;
+        this.lastBlockFace = null;
+    }
+
+    public boolean has(Toggle toggle) {
+        return toggles.get(toggle);
+    }
+
+    public boolean isSneaking() {
+        return sneak;
+    }
+
+    public BlockFace getLastBlockFace() {
+        return lastBlockFace;
+    }
+
+    public void setToggle(Player player, Toggle toggle, boolean value) {
+        toggles.put(toggle, value);
+        Config.playerDataFolder.updatePlayer(player.getUniqueId(), toggle, value);
+    }
+
+    public void setSneak(boolean sneak) {
+        this.sneak = sneak;
+    }
+
+    public void setLastBlockFace(BlockFace blockFace) {
+        lastBlockFace = blockFace;
+    }
+
+    public enum Toggle {
+
+        INFO(Message.COMMAND_TOGGLE_INFO.getMessage()),
+        BLOCK(Message.COMMAND_TOGGLE_BLOCK.getMessage()),
+        CHANGE(Message.COMMAND_TOGGLE_CHANGE.getMessage()),
+        MIDDLE(Message.COMMAND_TOGGLE_MIDDLE.getMessage());
+
+        private String message;
+
+        Toggle(String message) {
+            this.message = message;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+        public String getInfo(PlayerData playerData) {
+            String state = playerData.has(this) ? Message.COMMAND_COMMON_ENABLED.getMessage() : Message.COMMAND_COMMON_DISABLED.getMessage();
+            return MessageFormat.format("§6{1}§7 : §r" + getMessage(), state, this);
+        }
+
+        public static Toggle get(String toggle) {
+            try {
+                return Toggle.valueOf(toggle.trim().toUpperCase(Locale.ENGLISH));
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+        public static void initMessages() {
+            INFO.setMessage(Message.COMMAND_TOGGLE_INFO.getMessage());
+            BLOCK.setMessage(Message.COMMAND_TOGGLE_BLOCK.getMessage());
+            CHANGE.setMessage(Message.COMMAND_TOGGLE_CHANGE.getMessage());
+            MIDDLE.setMessage(Message.COMMAND_TOGGLE_MIDDLE.getMessage());
+        }
+    }
+}

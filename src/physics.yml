@@ -1,0 +1,84 @@
+#-------------------------------------------------------------------
+#  List of MATERIAL names below :
+#  https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+#  Remove "#" to activate "no physic" state on a material.
+#-------------------------------------------------------------------
+#  Use "- '*'" material to set all blocks in no physic mode.
+#  And "- -MATERIAL_NAME" to exclude a material.
+#-------------------------------------------------------------------
+
+#No physics list by world.
+worlds:
+    world:
+#    - RAILS
+#    - LADDER
+    world_nether:
+#    - '*'
+#    - -PORTAL
+    your_world:
+#    - SIGN_POST
+#    - WALL_SIGN
+
+blacklisted-worlds:
+#    - world_the_end
+
+#No physic list for all worlds (exclude worlds blacklisted)
+global:
+#- ACTIVATOR_RAIL
+#- ANVIL
+#- BED_BLOCK
+#- BROWN_MUSHROOM
+#- CACTUS
+#- CARROT
+#- CARPET
+#- COCOA
+#- CROPS
+#- DEAD_BUSH
+#- DETECTOR_RAIL
+#- DIODE_BLOCK_OFF
+#- DIODE_BLOCK_ON
+#- DOUBLE_PLANT
+#- FLOWER_POT
+#- GOLD_PLATE
+#- IRON_DOOR_BLOCK
+#- IRON_PLATE
+#- LADDER
+#- LEVER
+#- LONG_GRASS
+#- MELON_STEM
+#- NETHER_WARTS
+#- PISTON_EXTENSION
+#- PISTON_MOVING_PIECE
+#- PORTAL
+#- POTATO
+#- POWERED_RAIL
+#- PUMPKIN_STEM
+#- RAILS
+#- RED_MUSHROOM
+#- RED_ROSE
+#- REDSTONE_COMPARATOR_OFF
+#- REDSTONE_COMPARATOR_ON
+#- REDSTONE_LAMP_OFF
+#- REDSTONE_LAMP_ON
+#- REDSTONE_TORCH_OFF
+#- REDSTONE_TORCH_ON
+#- REDSTONE_WIRE
+#- SAND
+#- SAPLING
+#- SIGN_POST
+#- SNOW
+#- STATIONARY_WATER
+#- STATIONARY_LAVA
+#- STONE_BUTTON
+#- STONE_PLATE
+#- SUGAR_CANE_BLOCK
+#- TORCH
+#- TRAP_DOOR
+#- TRIPWIRE_HOOK
+#- VINE
+#- WALL_SIGN
+#- WATER_LILY
+#- WOOD_BUTTON
+#- WOODEN_DOOR
+#- WOOD_PLATE
+#- YELLOW_FLOWER

@@ -1,0 +1,106 @@
+name: Blocks
+version: 2.0.0
+author: Yoga_Sama
+website: http://dev.bukkit.org/bukkit-plugins/creatruthblocks/
+main: fr.creatruth.blocks.BMain
+description: >
+             Blocks management, biome tools, build tools, and creative mecanics add-ons.
+
+commands:
+    block:
+      description: Give you a custom block.
+      usage: /block <material|id[:data]> [player]
+      aliases: [creatruthblock,cbblock,bl,bloc]
+    vision:
+      description: Activate special vision.
+      usage: /vision [night|aqua]
+      aliases: [creatruthvision]
+    head:
+      description: Give you player's head.
+      usage: /head [pseudo|help]
+      aliases: [creatruthplayerhead,playerh,phead,playerhead,creatruthhead]
+    meter:
+      description: Give you a meter.
+      usage: /meter
+      aliases: [creatruthmeter]
+    biome:
+      description: Biome tools.
+      usage: /biome <args...>
+      aliases: [creatruthbiome, biomes]
+    blocks:
+      description: Plugin help.
+      usage: /blocks <args...>
+      aliases: [creatruthblock]
+    line:
+      description: Blocks line.
+      usage: /line [size|help|off] [face] [material[:data]]
+      aliases: [creatruthline,lines]
+    toggle:
+      description: Toggle function.
+      usage: /toggle  <args...>
+      aliases: [creatruthtoggle,creatrutht]
+    dev:
+      description: Command use by developer for tests.
+      usage: /dev <args...>
+      aliases: [creatruthdev]
+permissions:
+    blocks.*:
+      description: Give all Blocks commands and bypass.
+      default: op
+      children:
+        blocks.head: true
+        blocks.reload: true
+        blocks.vision.night: true
+        blocks.vision.aqua: true
+        blocks.line: true
+        blocks.line.bypass: true
+        blocks.meter: true
+        blocks.block: true
+        blocks.block.other: true
+        blocks.toggle.list.other: true
+        blocks.toggle.other: true
+        blocks.biome: true
+        blocks.biome.limit: true
+    blocks.toggle.*:
+      description: All usages of /toggle command.
+      default: op
+      children:
+        blocks.toggle.other: true
+        blocks.toggle.list.other: true
+    blocks.line.bypass:
+      description: Give bypass with /line command.
+      default: op
+      children:
+        blocks.line: true
+    blocks.vision:
+      description: Give /vision night and aqua.
+      default: op
+      children:
+        blocks.vision.night: true
+        blocks.vision.aqua: true
+    blocks.head:
+      description: Allow /head command access.
+    blocks.reload:
+      description: Reload plugin.
+    blocks.block:
+      description: Allow /block and /blocklist
+    blocks.block.other:
+      description: Allow you to give a block.
+    blocks.vision.night:
+      description: Allow /vision night command access.
+    blocks.vision.aqua:
+      description: Allow /vision aqua command access.
+    blocks.meter:
+      description: Allow /meter command access.
+    blocks.line:
+      description: Allow /line command access.
+    blocks.line.bypass:
+      description: Bypass line blacklist and height.
+    blocks.toggle.list.other:
+      description: Show toggles of players.
+    blocks.toggle.other:
+      description: Toggle for specified player.
+    blocks.biome:
+      description: Allow /biome command access.
+    blocks.biome.limit:
+      description: Bypass the biome radius limit.
