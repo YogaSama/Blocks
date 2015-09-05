@@ -134,8 +134,8 @@ public class BiomeTool {
                 for (int z = bZ - radius; z <= bZ + radius; z++) {
 
                     if (((bX - x) * (bX - x)) + ((bZ - z) * (bZ - z)) <= radius * radius) {
-
                         bl = new Location(w, x, y, z).getBlock();
+
                         if (canByApply(bl) && Perm.canBuild(p, bl.getLocation())) {
                             bl.setBiome(getRandomBiome());
                             chunks.add(bl.getChunk());
