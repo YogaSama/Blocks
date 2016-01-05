@@ -6,13 +6,7 @@
  */
 package fr.creatruth.blocks.manager.block;
 
-import fr.creatruth.blocks.manager.item.BaseItem;
-
 public class OrientableBlock extends BaseBlock {
-
-    public OrientableBlock(BaseItem baseItem) {
-        super(baseItem);
-    }
 
     public byte getOrientation() {
         return getOrientation(0);

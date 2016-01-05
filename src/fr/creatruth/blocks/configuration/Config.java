@@ -45,10 +45,7 @@ public class Config {
     static final String BLOCKS_BLACKLIST =                      "blocks-blacklist";
 
     public static FileConfiguration    fileConfig;
-    public static MessageFile          messageFile;
-    public static PhysicsFile          physicsFile;
     public static PlayerDataFolder     playerDataFolder;
-    public static BlocksListFile       blocksListFile;
 
     public static void load() {
         line_delay_per_block = -1;
@@ -65,13 +62,15 @@ public class Config {
         BMain.instance.reloadConfig();
 
         fileConfig = BMain.instance.getConfig();
-        Meter.MATERIAL = Config.getMeterWand();
+
+        Meter.MATERIAL     = Config.getMeterWand();
         BiomeTool.MATERIAL = Config.getBiomeWand();
 
-        messageFile = new MessageFile();
-        physicsFile = new PhysicsFile();
+        new ListFile().loadContent();
+        new BlocksListFile().loadContent();
+        new PhysicsFile().loadContent();
+        new MessageFile().loadContent();
         playerDataFolder = new PlayerDataFolder();
-        blocksListFile = new BlocksListFile();
 
         PlayerData.Toggle.initMessages();
 
@@ -175,34 +174,6 @@ public class Config {
             fc.save(file);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    static void write(String ressource, File file) {
-        BufferedReader in = new BufferedReader(new InputStreamReader(BMain.instance.getResource(ressource)));
-        BufferedWriter out = null;
-        try {
-            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
-            String line;
-
-            while ((line = in.readLine()) != null) {
-                out.write(line);
-                out.newLine();
-                out.flush();
-            }
-
-            out.close();
-            in.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (out != null) out.close();
-                in.close();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
         }
     }
 }

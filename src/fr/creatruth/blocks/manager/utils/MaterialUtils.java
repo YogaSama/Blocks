@@ -6,6 +6,7 @@
  */
 package fr.creatruth.blocks.manager.utils;
 
+import fr.creatruth.development.material.MatData;
 import org.bukkit.Material;
 
 public class MaterialUtils {
@@ -15,10 +16,10 @@ public class MaterialUtils {
      * @param s Un nom de matériaux ou son ID.
      * @return un Material si le paramétre été valide, sinon null.
      */
-    public static Material getMaterial(String s) {
-        if (s == null) return null;
+    public static Material getMaterial(String s, Material defaultValue) {
+        if (s == null) return defaultValue;
         Material mat = getMatByName(s, null);
-        return mat == null ? getMatById(NumberUtils.getInteger(s, -1)) : mat;
+        return mat == null ? getMatById(NumberUtils.getInteger(s, 0)) : mat;
     }
 
     public static Material getMatByName(String s, Material defaultMat) {
@@ -45,13 +46,33 @@ public class MaterialUtils {
             if (s.contains(":")) {
                 String[] split = s.split(":");
                 if (split.length > 0)
-                    material = MaterialUtils.getMaterial(split[0]);
+                    material = MaterialUtils.getMaterial(split[0], null);
             }
-            else
-                material = MaterialUtils.getMaterial(s);
+            else {
+                material = MaterialUtils.getMaterial(s, null);
+            }
 
         }
         return material == null ? defaultValue : material;
+    }
+
+    public static MatData getMatData(String s, MatData defaultValue) {
+        if (s == null) return defaultValue;
+        MatData md = null;
+
+        if (s.contains(":")) {
+            String[] split  = s.split(":");
+            if (split.length > 1) {
+                Material mat = MaterialUtils.getMaterial(split[0], Material.AIR);
+                short data = NumberUtils.getShort(split[1], (short) 0);
+                md = new MatData(mat, data);
+            }
+        }
+        else {
+            Material mat = MaterialUtils.getMaterial(s, Material.AIR);
+            md = new MatData(mat);
+        }
+        return md;
     }
 
     public static byte getData(String s, byte data) {

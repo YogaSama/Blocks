@@ -17,7 +17,7 @@ import java.util.Set;
 
 public class PhysicsListener extends AListener {
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onBlockFromTo(EntityChangeBlockEvent event) {
         if (event.getEntityType() == EntityType.FALLING_BLOCK) {
             Material material = event.getBlock().getType();
@@ -28,7 +28,7 @@ public class PhysicsListener extends AListener {
         }
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onPhysic(BlockPhysicsEvent event) {
         Material material = event.getBlock().getType();
         String worldName = event.getBlock().getWorld().getName();
@@ -44,18 +44,14 @@ public class PhysicsListener extends AListener {
     }
 
     public static boolean isGlobal(Material material) {
-        if (PhysicsFile.globalStar) {
-            return !PhysicsFile.globalExclude.contains(material);
-        }
+        if (PhysicsFile.globalStar) return !PhysicsFile.globalExclude.contains(material);
         return PhysicsFile.global.contains(material);
     }
 
     public static boolean isInWorld(String worldName, Material material) {
         Set<Material> materials = PhysicsFile.worldsMap.get(worldName);
         if (materials != null) {
-            if (PhysicsFile.worldsMapStar.get(worldName)) {
-                return !isExcludeInWorld(worldName, material);
-            }
+            if (PhysicsFile.worldsMapStar.get(worldName)) return !isExcludeInWorld(worldName, material);
             return materials.contains(material);
         }
         return false;

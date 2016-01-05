@@ -8,8 +8,6 @@ package fr.creatruth.blocks.listener;
 
 import fr.creatruth.blocks.configuration.Config;
 import fr.creatruth.blocks.manager.block.BaseBlock;
-import fr.creatruth.blocks.manager.item.BaseItem;
-import fr.creatruth.blocks.manager.item.ItemBuilder;
 import fr.creatruth.blocks.manager.tools.BiomeTool;
 import fr.creatruth.blocks.manager.tools.ItemPattern;
 import fr.creatruth.blocks.manager.utils.BlockUtils;
@@ -19,7 +17,10 @@ import fr.creatruth.blocks.BMain;
 import fr.creatruth.blocks.player.PlayerData;
 
 import fr.creatruth.blocks.manager.utils.InfoUtils;
-import fr.creatruth.blocks.runnable.TaskManager;
+import fr.creatruth.development.material.MatData;
+import fr.creatruth.development.material.MatManager;
+import fr.creatruth.development.material.State;
+import fr.creatruth.development.item.*;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -32,9 +33,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.PressurePlate;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class InteractListener extends AListener {
 
@@ -50,54 +48,28 @@ public class InteractListener extends AListener {
      */
     @EventHandler(priority = EventPriority.LOW)
     public void onInteract(PlayerInteractEvent event) {
-        Player player = event.getPlayer();
-        Block block = event.getClickedBlock();
-        Action action = event.getAction();
-        PlayerData pd = BMain.getData(player);
-        ItemStack item = event.getItem();
+        Block block    = event.getClickedBlock();
+        Action action  = event.getAction();
 
-        pd.setLastBlockFace(event.getBlockFace());
         /*
          * PHYSICAL ACTION
          */
         if (action == Action.PHYSICAL) {
             if (block.getData() > 0 && block.getState().getData() instanceof PressurePlate)
                 event.setCancelled(true);
+            return;
         }
-        /*
-         * SNEAK ACTION
-         */
-        else if (pd.isSneaking() && player.getGameMode() == GameMode.CREATIVE) {
 
-            if (item != null) {
-                BiomeTool tool = new BiomeTool(player, item);
+        Player player  = event.getPlayer();
+        PlayerData pd  = BMain.getData(player);
+        ItemStack item = event.getItem();
 
-                if (block == null && pd.has(PlayerData.Toggle.CHANGE) && canChangeFix(player)) {
-                    if (BiomeTool.isBiomeTool(item)) {
-                        tool.onChangeRadius(action);
-                        event.setCancelled(true);
-                    }
-                    else {
-                        String name = ItemUtils.getDisplayName(item);
-                        if (name.equals("") || ItemPattern.hasPattern(ItemPattern.P_BLOCK, item)) {
-                            BaseItem bi = BaseItem.toBaseItem(item);
-                            if (bi != null) {
-                                bi.onSwitch(action);
-                                event.setCancelled(true);
-                            }
-                        }
-                    }
-                }
-            }
-            else if (action == Action.RIGHT_CLICK_BLOCK && pd.has(PlayerData.Toggle.INFO)) {
-                InfoUtils.getBlockInfo(block, player, block.getLocation());
-                event.setCancelled(true);
-            }
-        }
+        pd.setLastBlockFace(event.getBlockFace());
+
         /*
          * METER
          */
-        else if (Meter.isMeter(item)) {
+        if (Meter.isMeter(item)) {
             Meter meter = new Meter(item);
             meter.updatePos(event);
         }
@@ -114,10 +86,86 @@ public class InteractListener extends AListener {
         /*
          * SENSIBLE BLOCK CLICK
          */
-        else if (action == Action.RIGHT_CLICK_BLOCK) {
-            if (block.getType() == Material.PISTON_MOVING_PIECE)
-                event.setCancelled(true);
+        else if (action          == Action.RIGHT_CLICK_BLOCK &&
+                 block.getType() == Material.PISTON_MOVING_PIECE) {
+                 event.setCancelled(true);
         }
+        /*
+         * SNEAK ACTION
+         */
+        else if (pd.isSneaking() && player.getGameMode() == GameMode.CREATIVE) {
+
+            if (item != null) {
+                if (    block == null &&
+                        pd.has(PlayerData.Toggle.CHANGE) &&
+                        canChangeFix(player)) {
+
+                    MatData md;
+                    if (!item.hasItemMeta())
+                        md = new MatData(item.getTypeId(), item.getDurability());
+
+                    else if (ItemPattern.hasPattern(ItemPattern.P_BLOCK, item)) {
+                        md = ItemPattern.getMatData(ItemUtils.getDisplayName(item));
+                    }
+                    else
+                        return;
+
+                    ItemList list = ItemManager.getInstance().get(md.toString());
+                    if (list != null) {
+                        switch (action) {
+                            case RIGHT_CLICK_AIR:
+                            case RIGHT_CLICK_BLOCK:
+                                player.setItemInHand(list.nextItem(item));
+                                break;
+                            case LEFT_CLICK_AIR:
+                            case LEFT_CLICK_BLOCK:
+                                player.setItemInHand(list.previousItem(item));
+                                break;
+                        }
+                    }
+                    event.setCancelled(true);
+                }
+            }
+            else if (action == Action.RIGHT_CLICK_BLOCK && pd.has(PlayerData.Toggle.INFO)) {
+                InfoUtils.getBlockInfo(block, player, block.getLocation());
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onPlace(BlockPlaceEvent event) {
+        Player player = event.getPlayer();
+        PlayerData pd = BMain.getData(player);
+        if (!pd.has(PlayerData.Toggle.BLOCK))
+            return;
+
+        ItemStack item = event.getItemInHand();
+        if (!ItemPattern.hasPattern(ItemPattern.P_BLOCK, item))
+            return;
+
+        ItemBuilder builder = ItemManager.getInstance().getBuilder(item);
+        if (builder == null)
+            return;
+
+        /*OldMaterials mats = OldMaterials.getMaterials(builder.getKey().getMaterial());
+        if (mats == null)
+            return;
+
+        BaseBlock baseBlock = mats.getBaseBlock();*/
+
+        State state = MatManager.getState(builder.getKey().getMaterial());
+        BaseBlock baseBlock = state.getBase();
+
+        if (baseBlock != null) baseBlock.onPlace(builder, event);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onBlockToEvent(BlockFromToEvent event) {
+        if (    event.getBlock().getType() == Material.DRAGON_EGG &&
+                !Config.isDragonEggTeleport())
+
+            event.setCancelled(true);
     }
 
     /**
@@ -130,34 +178,5 @@ public class InteractListener extends AListener {
      */
     private static boolean canChangeFix(Player player) {
         return player.getLocation().getPitch() < 60 || BlockUtils.getExactlyTargetBlock(player, 3).getType() == Material.AIR;
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
-    public void onPlace(BlockPlaceEvent event) {
-        if (event.isCancelled()) return;
-
-        Player player = event.getPlayer();
-        PlayerData pd = BMain.getData(player);
-
-        if (pd.has(PlayerData.Toggle.BLOCK)) {
-            if (ItemPattern.hasPattern(ItemPattern.P_BLOCK, event.getItemInHand())) {
-                BaseItem bi = BaseItem.toBaseItem(event.getItemInHand());
-                if (bi != null) {
-                    BaseBlock bb = BaseBlock.toBlock(bi);
-                    if (bb != null) {
-                        bb.onPlace(event);
-                    }
-                    if (bi.getItemBuilder().getAttributes().getType() == ItemBuilder.Type.LINE) {
-                        TaskManager.lineTask(player, bi, event.getBlockPlaced());
-                    }
-                }
-            }
-        }
-    }
-
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = false)
-    public void onBlockToEvent(BlockFromToEvent event) {
-        if (!event.isCancelled() && event.getBlock().getType() == Material.DRAGON_EGG && !Config.isDragonEggTeleport())
-            event.setCancelled(true);
     }
 }

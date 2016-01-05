@@ -8,8 +8,8 @@ package fr.creatruth.blocks.command.argument;
 
 import fr.creatruth.blocks.manager.utils.MaterialUtils;
 import fr.creatruth.blocks.manager.utils.NumberUtils;
+import fr.creatruth.development.material.MatData;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
@@ -71,8 +71,8 @@ public class Arguments {
         return Bukkit.getWorld(get(index));
     }
 
-    public Material getMaterial(int index) {
-        return MaterialUtils.getMaterialWithData(get(index), null);
+    public MatData getMatData(int index) {
+        return MaterialUtils.getMatData(get(index), null);
     }
 
     public byte getData(int index, byte data) {

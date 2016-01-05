@@ -7,29 +7,29 @@
 package fr.creatruth.blocks.manager.block.type;
 
 import fr.creatruth.blocks.manager.block.RedstoneBlock;
-import fr.creatruth.blocks.manager.item.BaseItem;
+import fr.creatruth.development.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 public class RedstoneDiodeBlock extends RedstoneBlock {
 
-    public RedstoneDiodeBlock(BaseItem baseItem) {
-        super(baseItem);
+    public RedstoneDiodeBlock() {
+        this.on = Material.DIODE_BLOCK_OFF;
+        this.off = Material.DIODE_BLOCK_ON;
+
+        this.classicItem = Material.DIODE;
     }
 
     @Override
-    public void onPlace(BlockPlaceEvent event) {
-        super.onPlace(event);
+    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
+        super.onPlace(builder, event);
 
-        if (getBaseItem().getItem().getType() == Material.DIODE) {
-            if (data == 1)
-                apply(Material.DIODE_BLOCK_ON);
+        if (material == classicItem) {
+            if (data == 1) apply(off);
         }
         else {
-            if (data == 0)
-                block.setType(Material.DIODE_BLOCK_OFF);
-            else
-                apply(Material.DIODE_BLOCK_ON);
+            if (data == 0) block.setType(on);
+            else           apply(off);
 
             block.setData(getOrientation(180));
         }

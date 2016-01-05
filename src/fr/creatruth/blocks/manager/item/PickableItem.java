@@ -6,7 +6,6 @@
  */
 package fr.creatruth.blocks.manager.item;
 
-import fr.creatruth.blocks.manager.Materials;
 import fr.creatruth.blocks.manager.utils.BlockUtils;
 import org.bukkit.block.Block;
 import org.bukkit.event.inventory.InventoryCreativeEvent;
@@ -17,13 +16,11 @@ public class PickableItem extends BaseItem {
     protected Block block;
     protected ItemStack cursor;
 
-    protected PickableItem(ItemStack item, Materials materials) {
-        super(item, materials);
+    protected PickableItem(ItemStack item) {
+        super(item);
     }
 
     public void onPick(InventoryCreativeEvent event) {
-        super.onPick(event);
-
         block = BlockUtils.getExactlyTargetBlock(event.getWhoClicked(), 5);
         cursor = event.getCursor();
     }

@@ -32,9 +32,7 @@ public class PlayerDataFolder {
     public File getDirectory() {
         if (file == null) {
             file = new File(BMain.instance.getDataFolder().getAbsolutePath(), FILE_NAME);
-            if (file.mkdirs()) {
-                BMain.log("\"" + FILE_NAME + "\" create !");
-            }
+            if (file.mkdirs()) BMain.log("\"" + FILE_NAME + "\" create !");
         }
         return file;
     }

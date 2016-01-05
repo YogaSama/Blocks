@@ -8,21 +8,20 @@ package fr.creatruth.blocks.manager.block.type;
 
 import fr.creatruth.blocks.BMain;
 import fr.creatruth.blocks.manager.block.OrientableBlock;
-import fr.creatruth.blocks.manager.item.BaseItem;
+import fr.creatruth.development.item.ItemBuilder;
+import fr.creatruth.development.item.ItemManager;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.inventory.InventoryCreativeEvent;
 
 public class TrapDoorBlock extends OrientableBlock {
 
-    public TrapDoorBlock(BaseItem baseItem) {
-        super(baseItem);
-    }
-
     @Override
-    public void onPlace(BlockPlaceEvent event) {
-        super.onPlace(event);
+    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
+        super.onPlace(builder, event);
 
-        if (baseItem.getItem().getType() != Material.TRAP_DOOR) {
+        if (material != Material.TRAP_DOOR) {
 
             block.setType(material);
             byte data = 0;
@@ -44,16 +43,39 @@ public class TrapDoorBlock extends OrientableBlock {
     private byte getDataByOrientation()  {
         byte data = 0;
         switch (getOrientation()) {
-            case 1:     data = 3;   break;
-            case 2:     data = 1;   break;
-            case 3:     data = 2;
+            case 1:
+                data = 3;
+                break;
+            case 2:
+                data = 1;
+                break;
+            case 3:
+                data = 2;
         }
-        byte itemData = baseItem.getItemBuilder().getData();
-        return (byte) (data + ((itemData == 1 || itemData == 3) ? 4 :0));
+        return (byte) (data + ((this.data == 1 || this.data == 3) ? 4 :0));
     }
 
     private byte ajustData(byte data) {
-        byte itemData = baseItem.getItemBuilder().getData();
-        return (byte) (data + (itemData == 1 ? 4 : itemData == 2 ? 8 : itemData == 3 ? 12 : 0));
+        return (byte) (data + (this.data == 1 ? 4 : this.data == 2 ? 8 : this.data == 3 ? 12 : 0));
+    }
+
+    @Override
+    public void onPick(Block target, InventoryCreativeEvent event) {
+        super.onPick(target, event);
+
+        if (cursor.getType() == target.getType()) {
+            byte data = (byte) Math.floor(target.getData() / 4D);
+
+            event.setCursor(ItemManager.getInstance().getBuilder(target.getType(), data).build());
+
+            /*if (data < 4)
+                event.setCursor(getItem(block.getType(), (byte) 0, null)); // Ouvert bas
+            else if (data < 8)
+                event.setCursor(getItem(block.getType(), (byte) 1, null)); // Ouvert haut
+            else if (data < 12)
+                event.setCursor(getItem(block.getType(), (byte) 2, null)); // Fermé bas
+            else
+                event.setCursor(getItem(block.getType(), (byte) 3, null)); // Fermé haut*/
+        }
     }
 }

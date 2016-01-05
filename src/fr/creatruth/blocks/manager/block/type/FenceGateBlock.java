@@ -7,23 +7,17 @@
 package fr.creatruth.blocks.manager.block.type;
 
 import fr.creatruth.blocks.manager.block.OrientableBlock;
-import fr.creatruth.blocks.manager.item.BaseItem;
 
+import fr.creatruth.development.item.ItemBuilder;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 public class FenceGateBlock extends OrientableBlock {
 
-    public FenceGateBlock(BaseItem baseItem) {
-        super(baseItem);
-    }
-
     @Override
-    public void onPlace(BlockPlaceEvent event) {
-        if (getBaseItem().getItem().getType() != getBaseItem().getItemBuilder().getMaterial()) {
-            super.onPlace(event);
+    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
+        super.onPlace(builder, event);
 
-            block.setType(getBaseItem().getItemBuilder().getMaterial());
-            block.setData((byte) (getOrientation() + (data * 4)));
-        }
+        block.setType(material);
+        block.setData((byte) (getOrientation() + (builder.getKey().getData() * 4)));
     }
 }

@@ -13,10 +13,8 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
 
 public class SneakListener extends AListener {
 
-    @EventHandler(ignoreCancelled = false)
+    @EventHandler(ignoreCancelled = true)
     public void onSneak(PlayerToggleSneakEvent event) {
-        if (event.isCancelled()) return;
-
         if (event.isSneaking())
             TaskManager.sneakTask(event.getPlayer());
 

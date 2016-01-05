@@ -6,62 +6,27 @@
  */
 package fr.creatruth.blocks.manager.block.type;
 
-import fr.creatruth.blocks.manager.item.BaseItem;
 import fr.creatruth.blocks.manager.block.BaseBlock;
 import fr.creatruth.blocks.BMain;
 
+import fr.creatruth.development.item.ItemBuilder;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.material.Button;
 
 public class ButtonBlock extends BaseBlock {
 
-    public ButtonBlock(BaseItem baseItem) {
-        super(baseItem);
-    }
-
     @Override
-    public void onPlace(BlockPlaceEvent event) {
-        super.onPlace(event);
+    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
+        super.onPlace(builder, event);
+        block.setType(material);
 
-        if (!(getBaseItem().getItem().getData() instanceof Button))
-            block.setType(material);
-
-        setData();
-    }
-
-    private void setData() {
-        if (data == 1) {
-            switch (BMain.getData(player).getLastBlockFace()) {
-                case EAST:
-                    block.setData((byte) 9);
-                    return;
-                case WEST:
-                    block.setData((byte) 10);
-                    return;
-                case SOUTH:
-                    block.setData((byte) 11);
-                    return;
-                case NORTH:
-                    block.setData((byte) 12);
-                    return;
-            }
+        byte data = 0;
+        if (this.data == 1) data = 8;
+        switch (BMain.getData(player).getLastBlockFace()) {
+            case EAST:  data += 1; break;
+            case WEST:  data += 2; break;
+            case SOUTH: data += 3; break;
+            case NORTH: data += 4; break;
         }
-        else {
-            switch (BMain.getData(player).getLastBlockFace()) {
-                case EAST:
-                    block.setData((byte) 1);
-                    return;
-                case WEST:
-                    block.setData((byte) 2);
-                    return;
-                case SOUTH:
-                    block.setData((byte) 3);
-                    return;
-                case NORTH:
-                    block.setData((byte) 4);
-                    return;
-            }
-        }
-        block.setData((byte) 0);
+        block.setData(data);
     }
 }

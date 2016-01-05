@@ -7,21 +7,17 @@
 package fr.creatruth.blocks.manager.block.type;
 
 import fr.creatruth.blocks.manager.block.BaseBlock;
-import fr.creatruth.blocks.manager.item.BaseItem;
 import fr.creatruth.blocks.BMain;
 
+import fr.creatruth.development.item.ItemBuilder;
 import org.bukkit.block.BlockFace;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 public class PistonExtensionBlock extends BaseBlock {
 
-    public PistonExtensionBlock(BaseItem baseItem) {
-        super(baseItem);
-    }
-
     @Override
-    public void onPlace(BlockPlaceEvent event) {
-        super.onPlace(event);
+    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
+        super.onPlace(builder, event);
 
         BlockFace face = BMain.getData(event.getPlayer()).getLastBlockFace();
 

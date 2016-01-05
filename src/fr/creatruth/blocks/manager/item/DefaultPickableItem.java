@@ -6,14 +6,13 @@
  */
 package fr.creatruth.blocks.manager.item;
 
-import fr.creatruth.blocks.manager.Materials;
 import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class DefaultPickableItem extends PickableItem {
 
-    public DefaultPickableItem(ItemStack item, Materials materials) {
-        super(item, materials);
+    public DefaultPickableItem(ItemStack item) {
+        super(item);
     }
 
     @Override

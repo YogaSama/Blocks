@@ -10,14 +10,13 @@ import fr.creatruth.blocks.command.handle.ACommand;
 import fr.creatruth.blocks.configuration.BlocksListFile;
 import fr.creatruth.blocks.inventory.gui.GUIManager;
 import fr.creatruth.blocks.inventory.page.PagedInventory;
-import fr.creatruth.blocks.manager.item.BaseItem;
-import fr.creatruth.blocks.manager.item.ItemBuilder;
-import fr.creatruth.blocks.manager.item.SpecialBase;
-import fr.creatruth.blocks.manager.tools.Attributes;
 import fr.creatruth.blocks.messages.Message;
 import fr.creatruth.blocks.messages.help.HelpHandler;
 import fr.creatruth.blocks.messages.help.PluginHelp;
 import fr.creatruth.blocks.player.Perm;
+import fr.creatruth.development.item.ItemBuilder;
+import fr.creatruth.development.item.ItemManager;
+import fr.creatruth.development.material.MatData;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -54,14 +53,10 @@ public class BlockCmd extends ACommand {
                 else if (args.get(0).equalsIgnoreCase("special") || args.get(0).equalsIgnoreCase("s")) {
                     ItemStack item = player.getItemInHand();
                     if (item.getType() != Material.AIR) {
-                        BaseItem bi = BaseItem.toBaseItem(item);
-                        if (bi != null && bi instanceof SpecialBase) {
-                            player.setItemInHand(((SpecialBase) bi).getSpecialBase(bi.getItemBuilder().getData()).getItem());
-                            Message.COMMAND_BLOCK_SPECIAL.send(player, Message.Type.BLOCK);
-                        }
-                        else
-                            Message.COMMAND_ERROR_SPECIALNOTAPPLY.sendAlert(player);
-
+                        MatData md = new MatData(item.getType(), item.getDurability());
+                        ItemBuilder ib = ItemManager.getInstance().getBuilder(md);
+                        player.setItemInHand(ib.build());
+                        Message.COMMAND_BLOCK_SPECIAL.send(player, Message.Type.BLOCK);
                     }
                     else
                         Message.COMMAND_ERROR_NOTVALIDMATERIAL.sendAlert(player);
@@ -87,35 +82,23 @@ public class BlockCmd extends ACommand {
                             return;
                         }
                     }
-                    Material material = args.getMaterial(0);
-                    if (material != null) {
+                    MatData matData = args.getMatData(0);
+                    if (matData != null) {
 
-                        BaseItem bi = BaseItem.toBaseItem(new ItemStack(material));
-                        byte data = args.getData(0, (byte) 0);
-                        String suffix = "";
-                        if (bi != null) {
-                            if (bi instanceof SpecialBase && !bi.getMaterials().isVisible()) {
-                                SpecialBase sti = (SpecialBase) bi;
-                                BaseItem sbi = sti.getSpecialBase(data);
-                                target.getInventory().addItem(sbi.getItem());
-                                suffix = Message.COMMAND_BLOCK_SPECIALSUFFIX.getMessage();
-                                data = sbi.getItemBuilder().getData();
-                            } else {
-                                bi.getItemBuilder().ajustData(data);
-                                bi.updateName();
-                                target.getInventory().addItem(bi.getItem());
-                                data = bi.getItemBuilder().getData();
-                            }
+                        ItemBuilder ib = ItemManager.getInstance().getBuilder(matData);
+                        if (ib == null) {
+                            player.sendMessage(""); // TODO
+                            return;
                         }
-                        else {
-                            target.getInventory().addItem(new ItemStack(material));
-                            data = 0;
-                        }
-                        String mat = material.name().toLowerCase() + (data == 0 ? "" : "§f data §b" + data);
-                        Message.COMMAND_BLOCK_RECEIVED.send(target, Message.Type.BLOCK, mat, suffix);
+                        target.getInventory().addItem(ib.build());
+
+                        String mat = matData.getMaterial().name().toLowerCase()  +
+                                     (matData.getData() == 0 ? "" : "§f data §b" +
+                                     matData.getData());
+                        Message.COMMAND_BLOCK_RECEIVED.send(target, Message.Type.BLOCK, mat);
+
                         if (!player.equals(target))
                             Message.COMMAND_BLOCK_SEND.send(player, Message.Type.BLOCK, mat, target.getName());
-
                     }
                     else
                         Message.COMMAND_ERROR_NOTVALIDMATERIAL.sendAlert(player);

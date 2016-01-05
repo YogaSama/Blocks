@@ -7,22 +7,29 @@
 package fr.creatruth.blocks.manager.block.type;
 
 import fr.creatruth.blocks.manager.block.RedstoneBlock;
-import fr.creatruth.blocks.manager.item.BaseItem;
 
 import fr.creatruth.blocks.runnable.TaskManager;
-import org.bukkit.Bukkit;
+import fr.creatruth.development.item.ItemBuilder;
+import fr.creatruth.development.item.ItemManager;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.inventory.InventoryCreativeEvent;
 
 public class RedstoneLampBlock extends RedstoneBlock {
 
-    public RedstoneLampBlock(BaseItem baseItem) {
-        super(baseItem);
+    @Override
+    public void onPick(Block target, InventoryCreativeEvent event) {
+        super.onPick(target, event);
+
+        if (cursor.getType() == Material.REDSTONE_LAMP_OFF) {
+            event.setCursor(ItemManager.getInstance().getBuilder(Material.REDSTONE_LAMP_OFF, target.getData()).build());
+        }
     }
 
     @Override
-    public void onPlace(BlockPlaceEvent event) {
-        super.onPlace(event);
+    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
+        super.onPlace(builder, event);
 
         block.setType(Material.REDSTONE_LAMP_ON);
         block.setData(data);

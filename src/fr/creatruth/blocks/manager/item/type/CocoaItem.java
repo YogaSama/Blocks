@@ -6,20 +6,16 @@
  */
 package fr.creatruth.blocks.manager.item.type;
 
-import fr.creatruth.blocks.manager.Materials;
-import fr.creatruth.blocks.manager.item.BaseItem;
 import fr.creatruth.blocks.manager.item.OrientableItem;
 
-import fr.creatruth.blocks.manager.item.SpecialBase;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class CocoaItem extends OrientableItem implements SpecialBase {
+public class CocoaItem extends OrientableItem {
 
-    public CocoaItem(ItemStack item, Materials materials) {
-        super(item, materials);
-        ib.setDataTable(DATA);
+    public CocoaItem(ItemStack item) {
+        super(item);
     }
 
     @Override
@@ -31,10 +27,5 @@ public class CocoaItem extends OrientableItem implements SpecialBase {
                 event.setCursor(getItem(Material.COCOA, getOrientation(), null));
             }
         }
-    }
-
-    @Override
-    public BaseItem getSpecialBase(byte data) {
-        return specialItemBuilder(Material.COCOA, Material.COCOA, data);
     }
 }

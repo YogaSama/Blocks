@@ -32,6 +32,7 @@ public class LineTask implements Runnable {
         this.current = origin.getRelative(dir);
         this.material = origin.getType();
         this.data = origin.getData();
+
         this.length = --length;
     }
 

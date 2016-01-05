@@ -16,12 +16,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.*;
 import java.util.*;
 
-public class PhysicsFile {
-
-    private static final String                 FILE_NAME = "physics.yml";
-
-    private File                                file;
-    private FileConfiguration                   fc;
+public class PhysicsFile extends AConfigFile {
 
     public static Map<String, Set<Material>>    worldsMap;
     public static Map<String, Boolean>          worldsMapStar;
@@ -37,28 +32,11 @@ public class PhysicsFile {
      * Initialise le fichier de la physics.
      */
     public PhysicsFile() {
-        file = new File(BMain.instance.getDataFolder().getAbsolutePath(), FILE_NAME);
-        if (!file.exists()) {
-            Config.write(FILE_NAME, file);
-            BMain.log("\"" + FILE_NAME + "\" create !");
-        }
-        loadContent();
+        super("physics.yml", true);
     }
 
-    private FileConfiguration getFileConfiguration() {
-        return fc == null ? fc = loadConfiguration() : fc;
-    }
-
-    private FileConfiguration loadConfiguration() {
-        try {
-            return YamlConfiguration.loadConfiguration(file);
-        } catch (Exception e) {
-            BMain.log("Cannot load " + FILE_NAME + " File !");
-            return null;
-        }
-    }
-
-    private void loadContent() {
+    @Override
+    public void loadContent() {
         worldsMap = new HashMap<>();
         worldsMapStar = new HashMap<>();
         worldsMapExclude = new HashMap<>();

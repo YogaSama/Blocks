@@ -21,6 +21,7 @@ public class InfoUtils {
 
         else
             Message.EVENT_CLICK_INFO.send(player, Message.Type.CLASSIC, b.getTypeId(), b.getData(), b.getType().name().toLowerCase(), Integer.toString(l.getBlockX()), l.getBlockY(), Integer.toString(l.getBlockZ()));
+
     }
 }
 

@@ -54,7 +54,7 @@ public enum Message {
 
     COMMAND_BLOCK_SPECIAL("Item changed item into special item !"), // Item changé en item spécial !
     COMMAND_BLOCK_SPECIALSUFFIX(" (&e&oSpecial&7)"), // (&e&oSpécial&7)
-    COMMAND_BLOCK_RECEIVED("You have received &5{0}&f. {1}"), // Vous avez reçu le l''item &5{0}&f. {1}
+    COMMAND_BLOCK_RECEIVED("You have received &5{0}&f."), // Vous avez reçu le l''item &5{0}&f.
     COMMAND_BLOCK_SEND("You have send &5{0}&f to &6{1}&f."), // Vous avez donné l''item &5{0} à &6{1}&f.
 
     COMMAND_ERROR_SPECIALNOTAPPLY("This item can''t be convert into special item."), // Cet item ne peut pas être transformé en item spécial.

@@ -18,6 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
+import particle.ParticleEffect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -171,6 +172,6 @@ public class Meter {
                 new Location(w, x, y, z - 0.5)
         };
 
-        for (Location location : locations) Particle.FIREWORKS_SPARK.sendToPlayer(player, location, 0F, 0F, 0F, 0F, 1);
+        for (Location location : locations) ParticleEffect.FIREWORKS_SPARK.display(0, 0, 0, 0, 1, location, player);
     }
 }

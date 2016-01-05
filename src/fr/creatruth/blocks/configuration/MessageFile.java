@@ -18,48 +18,22 @@ import java.util.List;
 /**
  * Gestion des messages.
  */
-public class MessageFile {
-
-    private static final String FILE_NAME = "messages.yml";
-
-    private File file;
-    private FileConfiguration fc;
-    private boolean isValid = true;
+public class MessageFile extends AConfigFile {
 
     /**
      * Initialise le fichier des messages.
      */
     public MessageFile() {
-        file = new File(BMain.instance.getDataFolder().getAbsolutePath(), FILE_NAME);
-        if (!file.exists()) {
-            Config.save(getFileConfiguration(), file);
-            BMain.log("\"" + FILE_NAME + "\" create !");
-        }
-        loadMessages();
-    }
-
-    private FileConfiguration getFileConfiguration() {
-        return fc == null ? fc = loadConfiguration() : fc;
-    }
-
-    private FileConfiguration loadConfiguration() {
-        try {
-            return YamlConfiguration.loadConfiguration(file);
-        } catch (Exception e) {
-            BMain.log("Cannot load " + FILE_NAME + " File !");
-            isValid = false;
-            return null;
-        }
+        super("messages.yml", true);
     }
 
     /**
      * Charge les messages, si ils n'existent pas dans la configuration alors
      * utilise les messages par défaut.
      */
-    void loadMessages() {
+    @Override
+    public void loadContent() {
         for (Message m : Message.values()) {
-            if (!isValid) return;
-
             String path = m.name().replace("_", ".").toLowerCase();
             List<String> txt = getFileConfiguration().getStringList(path);
 

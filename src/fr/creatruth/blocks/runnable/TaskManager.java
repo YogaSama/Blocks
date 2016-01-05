@@ -6,11 +6,9 @@
  */
 package fr.creatruth.blocks.runnable;
 
-import fr.creatruth.blocks.BMain;
 import fr.creatruth.blocks.configuration.Config;
-import fr.creatruth.blocks.manager.block.BaseBlock;
 import fr.creatruth.blocks.manager.item.BaseItem;
-import fr.creatruth.blocks.manager.tools.Attributes;
+import fr.creatruth.blocks.manager.tools.Attribute;
 import fr.creatruth.blocks.manager.tools.Face;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
@@ -18,21 +16,35 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import java.util.HashMap;
+import java.util.Random;
 import java.util.UUID;
+
+import static fr.creatruth.blocks.BMain.*;
 
 public class TaskManager {
 
-    static HashMap<String, Integer> taskList = new HashMap<>();
-    static BukkitScheduler scheduler = Bukkit.getScheduler();
-    static BMain instance = BMain.instance;
+    static HashMap<String, Integer> taskList    = new HashMap<>();
+    static BukkitScheduler          scheduler   = Bukkit.getScheduler();
+
+    public static HashMap<String, Integer> getTaskList() {
+        return taskList;
+    }
+
+    public static String getUniqueName(String taskName) {
+        String name;
+        Random rdm = new Random();
+        do {
+            name = taskName + "_" + rdm.nextInt(100000);
+        } while (taskExist(name));
+        return name;
+    }
 
     public static boolean taskExist(String taskName) {
-        return taskList.containsKey(taskName);
+        return taskName != null && taskList.containsKey(taskName);
     }
 
     public static int getTaskId(String taskName) {
-        if (taskExist(taskName))
-            return taskList.get(taskName);
+        if (taskExist(taskName)) return taskList.get(taskName);
         return 0;
     }
 
@@ -47,20 +59,10 @@ public class TaskManager {
     }
 
     public static int runSyncRepeatingTask(String taskName, Runnable runnable, long refresh) {
-        if (taskExist(taskName))
-            cancelTaskByName(taskName);
-
+        cancelTaskByName(taskName);
         int id = runSyncRepeatingTask(runnable, refresh);
         taskList.put(taskName, id);
         return id;
-    }
-
-    public static int runSyncRepeatingTask(Runnable runnable, long refresh) {
-        return scheduler.scheduleSyncRepeatingTask(instance, runnable, refresh, refresh);
-    }
-
-    public static void runAsynchronously(Runnable runnable) {
-        scheduler.runTaskAsynchronously(instance, runnable);
     }
 
     public static void run(Runnable runnable) {
@@ -69,6 +71,14 @@ public class TaskManager {
 
     public static void runLater(Runnable runnable, long ticks) {
         scheduler.runTaskLater(instance, runnable, ticks);
+    }
+
+    public static int runSyncRepeatingTask(Runnable runnable, long refresh) {
+        return scheduler.scheduleSyncRepeatingTask(instance, runnable, 0, refresh);
+    }
+
+    public static void runAsynchronously(Runnable runnable) {
+        scheduler.runTaskAsynchronously(instance, runnable);
     }
 
     /*
@@ -82,7 +92,7 @@ public class TaskManager {
 
     public static void lineTask(Player player, BaseItem baseItem, Block block) {
         String taskName = UUID.randomUUID().toString();
-        Attributes atb = baseItem.getItemBuilder().getAttributes();
+        Attribute atb = baseItem.getItemBuilder().getAttribute();
         int length = atb.getInt(0);
         Face face = atb.getFace(1);
         Runnable r = new LineTask(taskName, player, block, face, length);

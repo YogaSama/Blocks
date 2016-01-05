@@ -8,21 +8,14 @@ package fr.creatruth.blocks.command;
 
 import fr.creatruth.blocks.command.handle.ACommand;
 import fr.creatruth.blocks.configuration.Config;
-import fr.creatruth.blocks.manager.item.BaseItem;
-import fr.creatruth.blocks.manager.item.SpecialBase;
-import fr.creatruth.blocks.manager.tools.Attributes;
 import fr.creatruth.blocks.manager.tools.Face;
-import fr.creatruth.blocks.manager.tools.ItemPattern;
-import fr.creatruth.blocks.manager.tools.LineBuilder;
 import fr.creatruth.blocks.messages.Message;
 import fr.creatruth.blocks.messages.help.HelpHandler;
 import fr.creatruth.blocks.messages.help.PluginHelp;
 import fr.creatruth.blocks.player.Perm;
 
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import fr.creatruth.development.item.ItemBuilder;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 /**
  * /line [size|help|off] [direction] [material|id[:data]]
@@ -41,91 +34,86 @@ public class LineCmd extends ACommand { // TODO Transformr un spécial item en l
 
     @Override
     public void execute() {
-        int size = 10;
+        int length = 10;
         Face face = Face._PLAYER;
-        BaseItem baseItem = null;
+        ItemBuilder builder = null;
         String mat = "";
 
-        if (sender instanceof Player) {
+        if (!(sender instanceof Player)) return;
 
-            if (!Perm.LINE.has(sender)) {
-                Message.COMMAND_ERROR_NOACCESS.sendAlert(sender);
+        if (!Perm.LINE.has(sender)) {
+            Message.COMMAND_ERROR_NOACCESS.sendAlert(sender);
+            return;
+        }
+
+        /*Player player = (Player) sender;
+
+        if (args.size() > 0) {
+
+            if (args.get(0).equalsIgnoreCase("help")) {
+                sender.sendMessage(HELP.constructHelp(sender, 1));
                 return;
             }
-            Player player = (Player) sender;
 
-            if (args.size() > 0) {
+            else if (args.get(0).equalsIgnoreCase("off")) {
+                if (ItemPattern.hasPattern(ItemPattern.P_LINE, player.getItemInHand())) {
+                    builder = BaseItem.toBaseItem(player.getItemInHand());
+                    if (builder != null) {
+                        builder.getItemBuilder().setAttributes(new Attributes(null));
+                        builder.updateName();
+                        Message.COMMAND_LINE_OFF.send(sender, Message.Type.BLOCK);
+                    }
+                }
+                return;
+            }
 
-                if (args.get(0).equalsIgnoreCase("help")) {
-                    sender.sendMessage(HELP.constructHelp(sender, 1));
+            size = getSize(player);
+            if (args.size() > 1) {
+                face = Face.getByKey(args.get(1), null);
+
+                if (face == null) {
+                    Message.COMMAND_LINE_VALIDFACES.send(sender, Message.Type.BLOCK, Face.getValidFaces());
                     return;
                 }
 
-                else if (args.get(0).equalsIgnoreCase("off")) {
-                    if (ItemPattern.hasPattern(ItemPattern.P_LINE, player.getItemInHand())) {
-                        baseItem = BaseItem.toBaseItem(player.getItemInHand());
-                        if (baseItem != null) {
-                            baseItem.getItemBuilder().setAttributes(new Attributes(null));
-                            baseItem.updateName();
-                            Message.COMMAND_LINE_OFF.send(sender, Message.Type.BLOCK);
-                        }
-                    }
-                    return;
-                }
+                if (args.size() > 2) {
+                    MatData matData = args.getKey(2);
+                    if (matData == null) return;
 
-                size = getSize(player);
-                if (args.size() > 1) {
-                    face = Face.getByKey(args.get(1), null);
-
-                    if (face == null) {
-                        Message.COMMAND_LINE_VALIDFACES.send(sender, Message.Type.BLOCK, Face.getValidFaces());
-                        return;
-                    }
-
-                    if (args.size() > 2) {
-                        Material material = args.getMaterial(2);
-                        if (material == null) return;
-
-                        mat = material.name();
-                        baseItem = BaseItem.toBaseItem(new ItemStack(material));
-
-                        if (baseItem != null) {
-                            byte data = args.getData(2, (byte) 0);
-                            if (data > 0) {
-                                mat += " : " + data;
-                                baseItem.getItemBuilder().ajustData(data);
-                            }
-                            if (baseItem instanceof SpecialBase) {
-                                SpecialBase sti = (SpecialBase) baseItem;
-                                baseItem = sti.getSpecialBase(data);
-                            }
-                        }
-                    }
+                    mat = matData.getMaterial().name();
+                    builder = ItemManager.getInstance().getBuilder(matData);
                 }
             }
-            if (args.size() < 3)
-                baseItem = BaseItem.toBaseItem(player.getItemInHand());
+        }
 
-            if (baseItem != null) {
-                if (!Config.getLineBlockBlackList().contains(baseItem.getItemBuilder().getMaterial().name()) || Perm.LINE_BYPASS.has(sender)) {
-                    LineBuilder.buildItem(player, baseItem, face, size);
+        if (args.size() < 3)
+            builder = BaseItem.toBaseItem(player.getItemInHand());
 
-                    String on = Message.COMMAND_LINE_HANDITEM.getMessage();
+        if (builder != null) {
+            if (    !Config.getLineBlockBlackList().contains(builder.getKey().getMaterial().name()) ||
+                    Perm.LINE_BYPASS.has(sender)) {
 
-                    if (args.size() >= 3) {
-                        on = mat;
-                        player.getInventory().addItem(baseItem.getItem());
-                    }
+                ItemBuilder ib = baseItem.getItemBuilder();
+                Attribute attribute = new Attribute(Attribute.Type.LINE);
+                attribute.add(length);
+                attribute.add(face == Face._PLAYER ? Face.getByOrientation(player) : face);
+                ib.setAttribute(attribute);
+                baseItem.updateName();
+                String on = Message.COMMAND_LINE_HANDITEM.getMessage();
 
-                    Message.COMMAND_LINE_GIVE.sendRaw(player, on, Integer.toString(size), face, Message.LINE.getMessage());
-                    player.playSound(player.getLocation(), Sound.NOTE_PIANO, 1F, 1F);
+                if (args.size() >= 3) {
+                    on = mat;
+                    player.getInventory().addItem(builder.build());
                 }
-                else
-                    Message.COMMAND_LINE_BLACKLISTMAT.sendAlert(player, baseItem.getItemBuilder().getMaterial().name().toLowerCase());
+
+                Message.COMMAND_LINE_GIVE.sendRaw(player, on, Integer.toString(size), face, Message.LINE.getMessage());
+                player.playSound(player.getLocation(), Sound.NOTE_PIANO, 1F, 1F);
             }
             else
-                Message.COMMAND_ERROR_USE.sendAlert(player);
+                Message.COMMAND_LINE_BLACKLISTMAT.sendAlert(player, builder.getKey().getMaterial().name().toLowerCase());
         }
+        else
+            Message.COMMAND_ERROR_USE.sendAlert(player);*/
     }
 
     private int getSize(Player player) {

@@ -6,9 +6,9 @@
  */
 package fr.creatruth.blocks.inventory.gui;
 
-import fr.creatruth.blocks.inventory.item.CustomItem;
 import fr.creatruth.blocks.inventory.item.ItemType;
 import fr.creatruth.blocks.inventory.page.PagedInventory;
+import fr.creatruth.development.item.ItemEncoder;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -40,7 +40,7 @@ public class CustomInv {
      * spéciaux sont annulés.
      */
     public boolean onInteract(Player player, PagedInventory pi, InventoryClickEvent event) {
-        switch (CustomItem.decodeId(event.getCurrentItem())) {
+        switch (ItemEncoder.decodeId(event.getCurrentItem())) {
             case ItemType.FIX:
                 event.setCancelled(true);
                 return true;

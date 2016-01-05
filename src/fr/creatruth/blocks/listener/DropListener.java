@@ -16,10 +16,8 @@ import org.bukkit.inventory.ItemStack;
 
 public class DropListener extends AListener {
 
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = false)
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onDrop(PlayerDropItemEvent event) {
-        if (event.isCancelled()) return;
-
         Player player = event.getPlayer();
         ItemStack itemInHand = player.getItemInHand();
 

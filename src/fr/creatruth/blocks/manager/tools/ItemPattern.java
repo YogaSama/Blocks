@@ -6,12 +6,11 @@
  */
 package fr.creatruth.blocks.manager.tools;
 
-import fr.creatruth.blocks.manager.item.ItemBuilder;
-import fr.creatruth.blocks.manager.tools.Attributes;
 import fr.creatruth.blocks.manager.utils.BiomeUtils;
 import fr.creatruth.blocks.manager.utils.ItemUtils;
 import fr.creatruth.blocks.manager.utils.MaterialUtils;
 import fr.creatruth.blocks.manager.utils.NumberUtils;
+import fr.creatruth.development.material.MatData;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.inventory.ItemStack;
@@ -40,14 +39,18 @@ public class ItemPattern {
      * Group(3) : '§7Data:§b'
      * Group(4) :  data
      */
-    public static final String  BLOCK_MAT   = "§7Block:§5%s";
+    public static final String  BLOCK_MAT   =  "§7Block:§5%s";
     public static final String  BLOCK_DATA  = " §7Data:§b%d";
 
     public static final Pattern P_BLOCK     = Pattern.compile("(.{2}Block:.{2})(\\w+)(?:( .{2}Data:.{2})((\\d+)))?");
 
+    public static MatData getMatData(String input) {
+        return new MatData(getMaterial(input), getData(input));
+    }
+
     public static Material getMaterial(String input) {
         String output = get(P_BLOCK, input, 2);
-        return output != null ? MaterialUtils.getMaterial(output) : null;
+        return MaterialUtils.getMaterial(output, null);
     }
 
     public static byte getData(String input) {
@@ -62,11 +65,11 @@ public class ItemPattern {
     public static final Pattern P_TYPE      = Pattern.compile("( .{2}Type:.{2})((\\w+))");
     public static final Pattern P_LINE      = Pattern.compile(" .{2}Size:.{2}(\\d+) .{2}Dir:.{2}((\\w+))");
 
-    public static Attributes getAttributes(String input) {
+    public static Attribute getAttributes(String input) {
         String output = get(P_TYPE, input, 2);
-        ItemBuilder.Type type = ItemBuilder.Type.get(output);
-        Attributes atb = new Attributes(type);
-        if (type == ItemBuilder.Type.LINE) {
+        Attribute.Type type = Attribute.Type.get(output);
+        Attribute atb = new Attribute(type);
+        if (type == Attribute.Type.LINE) {
             Matcher m = P_LINE.matcher(input);
             if (m.find()) {
                 for (int i = 1; i < m.groupCount(); i++) {

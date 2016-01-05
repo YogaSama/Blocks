@@ -16,10 +16,6 @@ public class PluginHelp implements Comparable<PluginHelp> {
     private String description;
     private Perm permission;
 
-    public PluginHelp() {
-        this("§c???");
-    }
-
     public PluginHelp(String command) {
         this.command = " " + command;
         this.description = "§cPas de description.";

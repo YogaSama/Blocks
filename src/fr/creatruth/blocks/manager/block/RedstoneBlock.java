@@ -6,26 +6,51 @@
  */
 package fr.creatruth.blocks.manager.block;
 
-import fr.creatruth.blocks.manager.item.BaseItem;
 import fr.creatruth.blocks.manager.utils.WorldUtils;
-import org.bukkit.Bukkit;
+import fr.creatruth.development.item.ItemBuilder;
+import fr.creatruth.development.item.ItemManager;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.inventory.InventoryCreativeEvent;
 
 public class RedstoneBlock extends OrientableBlock {
 
-    private World world;
+    /* -------------- */
+    /* PICK           */
+    /* -------------- */
 
-    public RedstoneBlock(BaseItem baseItem) {
-        super(baseItem);
-    }
+    protected Material on;
+    protected Material off;
+    protected Material classicItem;
 
     @Override
-    public void onPlace(BlockPlaceEvent event) {
-        super.onPlace(event);
+    public void onPick(Block target, InventoryCreativeEvent event) {
+        super.onPick(target, event);
 
-        world = event.getPlayer().getWorld();
+        if      (cursor.getType() == on         ) setCursor(event, on);
+        else if (cursor.getType() == classicItem) setCursor(event, classicItem);
+    }
+
+    private void setCursor(InventoryCreativeEvent event, Material material) {
+        if (block.getType() == on)
+            event.setCursor(ItemManager.getInstance().getBuilder(material, (byte) 0).build());
+
+        else if (block.getType() == off)
+            event.setCursor(ItemManager.getInstance().getBuilder(material, (byte) 1).build());
+    }
+
+    /* -------------- */
+    /* PLACE          */
+    /* -------------- */
+
+    private World world;
+
+    @Override
+    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
+        super.onPlace(builder, event);
+        this.world = event.getPlayer().getWorld();
     }
 
     public void apply(Material material) {

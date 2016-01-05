@@ -22,6 +22,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
+import particle.ParticleEffect;
 
 import java.util.HashSet;
 import java.util.List;
@@ -149,7 +150,7 @@ public class BiomeTool {
             for (Chunk c : chunks) {
                 l.getWorld().refreshChunk(c.getX(), c.getZ());
             }
-            Particle.FIREWORKS_SPARK.sendToPlayer(p, l.clone().add(.5, .5, .5), .7F, .7F, .7F, 0, 5);
+            ParticleEffect.FIREWORKS_SPARK.display(.7F, .7F, .7F, 0, 5, l.clone().add(.5, .5, .5), p);
         }
     }
 

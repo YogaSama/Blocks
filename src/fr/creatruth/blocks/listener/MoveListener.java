@@ -15,9 +15,9 @@ import org.bukkit.inventory.ItemStack;
 
 public class MoveListener extends AListener {
 
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = false)
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onMove(PlayerMoveEvent event) {
-        if (!event.isCancelled() && hasMoved(event.getFrom(), event.getTo())) {
+        if (hasMoved(event.getFrom(), event.getTo())) {
             ItemStack item = event.getPlayer().getItemInHand();
 
             if (Meter.isMeter(item)) {
@@ -30,7 +30,7 @@ public class MoveListener extends AListener {
     private boolean hasMoved(final Location fromLoc, final Location toLoc) {
         return !(fromLoc.getWorld().equals(toLoc.getWorld()) &&
                 fromLoc.getBlockX() == toLoc.getBlockX() &&
-                (fromLoc.getBlockY() == (toLoc.getBlockY())) &&
+                fromLoc.getBlockY() == (toLoc.getBlockY()) &&
                 fromLoc.getBlockZ() == toLoc.getBlockZ());
     }
 }

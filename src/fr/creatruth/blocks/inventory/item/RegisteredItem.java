@@ -7,6 +7,7 @@
 package fr.creatruth.blocks.inventory.item;
 
 import fr.creatruth.blocks.manager.utils.ItemUtils;
+import fr.creatruth.development.item.ItemEncoder;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
@@ -19,24 +20,24 @@ public class RegisteredItem {
 
     public static ItemStack getPrevious() {
         if (previous == null) {
-            String name = CustomItem.encodeInName("§c◄◄ §7Page précédente", ItemType.PREVIOUS_PAGE);
-            previous = ItemUtils.setItem(Material.GHAST_TEAR, name);
+            previous = ItemUtils.setItem(Material.GHAST_TEAR, "§c◄◄ §7Page précédente");
+            ItemEncoder.encodeInName(previous, ItemType.PREVIOUS_PAGE);
         }
         return previous;
     }
 
     public static ItemStack getNext() {
         if (next == null) {
-            String name = CustomItem.encodeInName("§7Page Suivante §a►►", ItemType.NEXT_PAGE);
-            next = ItemUtils.setItem(Material.GOLD_NUGGET, name);
+            next = ItemUtils.setItem(Material.GOLD_NUGGET, "§7Page Suivante §a►►");
+            ItemEncoder.encodeInName(next, ItemType.NEXT_PAGE);
         }
         return next;
     }
 
     public static ItemStack getClose() {
         if (close == null) {
-            String name = CustomItem.encodeInName("§4◆ §4§lFermer §4◆", ItemType.CLOSE);
-            close = ItemUtils.setItem(Material.IRON_DOOR, name);
+            close = ItemUtils.setItem(Material.IRON_DOOR, "§4◆ §4§lFermer §4◆");
+            ItemEncoder.encodeInName(close, ItemType.CLOSE);
         }
         return close;
     }
