@@ -20,11 +20,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.ItemStack;
 
 public class InventoryCreativeListener extends AListener {
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-    public void onCreativeInventory(final InventoryCreativeEvent event) {
+    public void onCreativeInventory(InventoryCreativeEvent event) {
         Player player = (Player) event.getWhoClicked();
 
         if (event.getSlotType() != InventoryType.SlotType.QUICKBAR)
@@ -33,12 +34,15 @@ public class InventoryCreativeListener extends AListener {
         if (!BMain.getData(player).has(PlayerData.Toggle.MIDDLE))
             return;
 
-        Block target = BlockUtils.getExactlyTargetBlock(player, 5);
+        Block target     = BlockUtils.getExactlyTargetBlock(player, 5);
+        ItemStack cursor = event.getCursor();
 
-        if (event.getCursor().getType() == Material.AIR || target.getType() == Material.AIR)
+        if (    cursor.getType() == Material.AIR ||
+                target.getType() == Material.AIR ||
+                cursor.hasItemMeta()    )
             return;
 
-        BaseBlock base = MatManager.getState(event.getCursor().getType()).getBase();
+        BaseBlock base = MatManager.getState(cursor.getType()).getBase();
         if (base != null) base.onPick(target, event);
 
         /*BaseItem bi;
