@@ -449,6 +449,13 @@ nether_warts:
     - "key=115:7;texture=87"
 brewing_stand:
     - "key=117;texture=379"
+    - "key=117:1;texture=379"
+    - "key=117:2;texture=379"
+    - "key=117:3;texture=379"
+    - "key=117:4;texture=379"
+    - "key=117:5;texture=379"
+    - "key=117:6;texture=379"
+    - "key=117:7;texture=379"
 cauldron_block:
     - "key=118;texture=380"
 dragon_egg:
@@ -737,6 +744,10 @@ cake_block:
     - "key=354:5;texture=354"
     - "key=354:6;texture=354"
     - "key=354:7;texture=354"
+bed_item:
+    - "355"
+    - "key=355:1;texture=355"
+    - "key=355:2;texture=355"
 pumpkin_seed:
     - "key=361;special=35:1"
     - "key=361:1;texture=361;special=35:1"
@@ -766,8 +777,16 @@ nether_wart:
     - "key=372:7;texture=372;special=87"
 container:
     - "380"
-    - "379"
     - "154"
+stand_item:
+    - "379"
+    - "key=379:1;texture=379"
+    - "key=379:2;texture=379"
+    - "key=379:3;texture=379"
+    - "key=379:4;texture=379"
+    - "key=379:5;texture=379"
+    - "key=379:6;texture=379"
+    - "key=379:7;texture=379"
 monster_egg:
     - "383:50"
     - "383:51"
