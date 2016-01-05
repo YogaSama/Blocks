@@ -113,8 +113,16 @@ public class MatManager {
                         base    = new SeedBlock(SUGAR_CANE, SUGAR_CANE_BLOCK);
                         break;
 
+                    case BED:
+                        base    = new BedItemBlock();
+                        break;
+
                     case BED_BLOCK:
                         base    = new BedBlock();
+                        break;
+
+                    case BREWING_STAND_ITEM:
+                        base    = new BrewingStandBlock();
                         break;
 
                     case ACACIA_STAIRS:
