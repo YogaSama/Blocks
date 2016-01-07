@@ -14,6 +14,7 @@ import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.inventory.ItemStack;
 
+@Deprecated
 public class BaseItem {
 
     /**

@@ -12,6 +12,7 @@ import fr.creatruth.blocks.manager.tools.ItemPattern;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+@Deprecated
 public class ItemBuilder {
 
     private ItemStack   item;

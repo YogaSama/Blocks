@@ -6,10 +6,9 @@
  */
 package fr.creatruth.blocks.manager.block.type;
 
+import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.blocks.manager.block.RedstoneBlock;
-import fr.creatruth.development.item.ItemBuilder;
 import org.bukkit.Material;
-import org.bukkit.event.block.BlockPlaceEvent;
 
 public class RedstoneComparatorBlock extends RedstoneBlock {
 
@@ -21,17 +20,17 @@ public class RedstoneComparatorBlock extends RedstoneBlock {
     }
 
     @Override
-    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
-        super.onPlace(builder, event);
+    public void onPlace(BlocksPlaceEvent event) {
+        super.onPlace(event);
 
-        if (material == classicItem) {
-            if (data == 1) apply(off);
+        if (event.getMaterial() == classicItem) {
+            if (event.getData() == 1) apply(event.getBlock(), off);
         }
         else {
-            if (data == 0) block.setType(on);
-            else           apply(off);
+            if (event.getData() == 0) event.getBlock().setType(on);
+            else           apply(event.getBlock(), off);
 
-            block.setData(getOrientation(180));
+            event.getBlock().setData(getOrientation(event.getPlayer(), 180));
         }
     }
 }

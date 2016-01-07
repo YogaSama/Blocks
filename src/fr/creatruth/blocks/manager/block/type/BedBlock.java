@@ -6,18 +6,18 @@
  */
 package fr.creatruth.blocks.manager.block.type;
 
+import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.blocks.manager.block.OrientableBlock;
-
-import fr.creatruth.development.item.ItemBuilder;
-import org.bukkit.event.block.BlockPlaceEvent;
 
 public class BedBlock extends OrientableBlock {
 
     @Override
-    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
-        super.onPlace(builder, event);
+    public void onPlace(BlocksPlaceEvent event) {
+        byte data = event.getData();
+        if (data == 0) data += getOrientation(event.getPlayer());
+        else           data += getOrientation(event.getPlayer(), 180);
 
-        block.setType(material);
-        block.setData((byte) (data + (data == 0 ? getOrientation() : getReverseOrientation())));
+        event.getBlock().setType(event.getMaterial());
+        event.getBlock().setData(data);
     }
 }

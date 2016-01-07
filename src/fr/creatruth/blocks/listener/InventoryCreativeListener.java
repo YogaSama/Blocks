@@ -6,13 +6,14 @@
  */
 package fr.creatruth.blocks.listener;
 
+import fr.creatruth.api.event.PickBlockEvent;
 import fr.creatruth.blocks.manager.block.BaseBlock;
-import fr.creatruth.blocks.manager.item.BaseItem;
 import fr.creatruth.blocks.BMain;
 import fr.creatruth.blocks.manager.utils.BlockUtils;
 import fr.creatruth.blocks.player.PlayerData;
 
 import fr.creatruth.development.material.MatManager;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -43,7 +44,11 @@ public class InventoryCreativeListener extends AListener {
             return;
 
         BaseBlock base = MatManager.getState(cursor.getType()).getBase();
-        if (base != null) base.onPick(target, event);
+        if (base != null) {
+            PickBlockEvent pickEvent = new PickBlockEvent(target, event);
+            Bukkit.getPluginManager().callEvent(pickEvent);
+            if (!pickEvent.isCancelled()) base.onPick(pickEvent);
+        }
 
         /*BaseItem bi;
         if (event.getCursor().getType() != Material.PAINTING)

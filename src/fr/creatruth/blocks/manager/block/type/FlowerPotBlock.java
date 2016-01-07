@@ -6,14 +6,14 @@
  */
 package fr.creatruth.blocks.manager.block.type;
 
+import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.blocks.manager.block.BaseBlock;
-import fr.creatruth.development.item.ItemBuilder;
 import fr.creatruth.development.reflection.PackAPI;
 import fr.creatruth.development.reflection.ClassAccess;
 import fr.creatruth.development.reflection.ConstructorBuilder;
 
 import org.bukkit.Material;
-import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 
 import java.lang.reflect.Method;
@@ -21,13 +21,12 @@ import java.lang.reflect.Method;
 public class FlowerPotBlock extends BaseBlock {
 
     @Override
-    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
-        super.onPlace(builder, event);
-
+    public void onPlace(BlocksPlaceEvent event) {
+        Block block = event.getBlock();
         block.setType(Material.FLOWER_POT);
 
         ItemStack item;
-        switch ((byte) builder.getKey().getData()) {
+        switch (event.getData()) {
             case 1:  item = new ItemStack(Material.RED_ROSE);             break;
             case 2:  item = new ItemStack(Material.YELLOW_FLOWER);        break;
             case 3:  item = new ItemStack(Material.SAPLING, 1, (byte) 0); break;

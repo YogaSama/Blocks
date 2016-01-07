@@ -9,7 +9,8 @@ package fr.creatruth.blocks.manager.item;
 import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class DefaultOrientableItem extends OrientableItem {
+@Deprecated
+public class DefaultOrientableItem extends PickableItem {
 
     public DefaultOrientableItem(ItemStack item) {
         super(item);
@@ -20,7 +21,7 @@ public class DefaultOrientableItem extends OrientableItem {
         super.onPick(event);
 
         if (cursor.getType() == block.getType()) {
-            event.setCursor(getItem(cursor.getType(), getOrientation(), null));
+            event.setCursor(getItem(cursor.getType(), (byte) (block.getData() / 4), null));
         }
     }
 }

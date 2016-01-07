@@ -6,26 +6,23 @@
  */
 package fr.creatruth.blocks.manager.block.type;
 
+import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.blocks.manager.block.OrientableBlock;
 import fr.creatruth.blocks.BMain;
-import fr.creatruth.development.item.ItemBuilder;
-import org.bukkit.event.block.BlockPlaceEvent;
 
 public class VineBlock extends OrientableBlock {
 
     @Override
-    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
-        super.onPlace(builder, event);
-
+    public void onPlace(BlocksPlaceEvent event) {
         byte value;
 
-        switch (BMain.getData(player).getLastBlockFace()) {
+        switch (BMain.getData(event.getPlayer()).getLastBlockFace()) {
             case NORTH: value = 1; break;
             case EAST:  value = 2; break;
             case SOUTH: value = 4; break;
             case WEST:  value = 8; break;
             default: {
-                switch (getOrientation()) {
+                switch (getOrientation(event.getPlayer())) {
                     case 0 : value = 1; break;
                     case 1 : value = 2; break;
                     case 2 : value = 4; break;
@@ -35,7 +32,7 @@ public class VineBlock extends OrientableBlock {
             }
         }
 
-        block.setType(material);
-        block.setData(value);
+        event.getBlock().setType(event.getMaterial());
+        event.getBlock().setData(value);
     }
 }

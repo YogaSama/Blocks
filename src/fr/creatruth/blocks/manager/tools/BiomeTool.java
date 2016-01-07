@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+@Deprecated
 public class BiomeTool {
 
     public static Material MATERIAL = Config.getMeterWand();

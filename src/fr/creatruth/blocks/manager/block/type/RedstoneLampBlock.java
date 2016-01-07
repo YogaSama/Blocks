@@ -6,40 +6,36 @@
  */
 package fr.creatruth.blocks.manager.block.type;
 
+import fr.creatruth.api.event.BlocksPlaceEvent;
+import fr.creatruth.api.event.PickBlockEvent;
 import fr.creatruth.blocks.manager.block.RedstoneBlock;
 
 import fr.creatruth.blocks.runnable.TaskManager;
-import fr.creatruth.development.item.ItemBuilder;
-import fr.creatruth.development.item.ItemManager;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.inventory.InventoryCreativeEvent;
 
 public class RedstoneLampBlock extends RedstoneBlock {
 
     @Override
-    public void onPick(Block target, InventoryCreativeEvent event) {
-        super.onPick(target, event);
-
-        if (cursor.getType() == Material.REDSTONE_LAMP_OFF) {
-            event.setCursor(ItemManager.getInstance().getBuilder(Material.REDSTONE_LAMP_OFF, target.getData()).build());
+    public void onPick(PickBlockEvent event) {
+        if (event.isTargetType(Material.REDSTONE_LAMP_OFF)) {
+            event.setCursor(itemManager().getBuilder(Material.REDSTONE_LAMP_OFF, event.getTarget().getData()).build());
         }
     }
 
     @Override
-    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
-        super.onPlace(builder, event);
+    public void onPlace(final BlocksPlaceEvent event) {
+        final Block block = event.getBlock();
 
         block.setType(Material.REDSTONE_LAMP_ON);
-        block.setData(data);
+        block.setData(event.getData());
 
         TaskManager.runLater(new Runnable() {
             @Override
             public void run() {
                 if (block.getType() == Material.REDSTONE_LAMP_ON || block.getType() == Material.REDSTONE_LAMP_OFF) {
-                    apply(Material.REDSTONE_LAMP_ON);
-                    block.setData(data);
+                    apply(block, Material.REDSTONE_LAMP_ON);
+                    block.setData(event.getData());
                 }
             }
         }, 5L);

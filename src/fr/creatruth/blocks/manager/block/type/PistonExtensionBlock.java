@@ -6,22 +6,20 @@
  */
 package fr.creatruth.blocks.manager.block.type;
 
+import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.blocks.manager.block.BaseBlock;
 import fr.creatruth.blocks.BMain;
 
-import fr.creatruth.development.item.ItemBuilder;
 import org.bukkit.block.BlockFace;
-import org.bukkit.event.block.BlockPlaceEvent;
 
 public class PistonExtensionBlock extends BaseBlock {
 
     @Override
-    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
-        super.onPlace(builder, event);
+    public void onPlace(BlocksPlaceEvent event) {
+        super.onPlace(event);
 
         BlockFace face = BMain.getData(event.getPlayer()).getLastBlockFace();
-
-        data = data == 0 ? (byte) 0 : 8;
+        byte data = event.getData() == 0 ? (byte) 0 : 8;
 
         switch (face) {
             case DOWN:  data += 0;   break;
@@ -32,7 +30,7 @@ public class PistonExtensionBlock extends BaseBlock {
             case EAST:  data += 5;   break;
         }
 
-        block.setType(material);
-        block.setData(data);
+        event.getBlock().setType(event.getMaterial());
+        event.getBlock().setData(data);
     }
 }

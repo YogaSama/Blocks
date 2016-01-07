@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Deprecated
 public class Meter {
 
     private static final Vector     CORRECTION = new Vector(.5, .5, .5);

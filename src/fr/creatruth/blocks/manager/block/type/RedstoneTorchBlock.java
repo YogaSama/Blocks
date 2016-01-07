@@ -6,11 +6,10 @@
  */
 package fr.creatruth.blocks.manager.block.type;
 
+import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.blocks.BMain;
 import fr.creatruth.blocks.manager.block.RedstoneBlock;
-import fr.creatruth.development.item.ItemBuilder;
 import org.bukkit.Material;
-import org.bukkit.event.block.BlockPlaceEvent;
 
 public class RedstoneTorchBlock extends RedstoneBlock {
 
@@ -20,18 +19,16 @@ public class RedstoneTorchBlock extends RedstoneBlock {
     }
 
     @Override
-    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
-        super.onPlace(builder, event);
-
-        if (material == on) {
-            if (data == 1) apply(off);
+    public void onPlace(BlocksPlaceEvent event) {
+        if (event.getMaterial() == on) {
+            if (event.getData() == 1) apply(event.getBlock(), off);
         }
         else {
-            if (data == 0) block.setType(on);
-            else           apply(off);
+            if (event.getData() == 0) event.getBlock().setType(on);
+            else                      apply(event.getBlock(), off);
 
             byte data = 0;
-            switch (BMain.getData(player).getLastBlockFace()) {
+            switch (BMain.getData(event.getPlayer()).getLastBlockFace()) {
                 case UP:
                 case DOWN:  data = (byte) 5; break;
 
@@ -41,7 +38,7 @@ public class RedstoneTorchBlock extends RedstoneBlock {
                 case NORTH: data = (byte) 4; break;
             }
 
-            block.setData(data);
+            event.getBlock().setData(data);
         }
     }
 }

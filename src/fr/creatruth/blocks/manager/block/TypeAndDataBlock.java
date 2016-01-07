@@ -6,16 +6,14 @@
  */
 package fr.creatruth.blocks.manager.block;
 
-import fr.creatruth.development.item.ItemBuilder;
-import org.bukkit.event.block.BlockPlaceEvent;
+import fr.creatruth.api.event.BlocksPlaceEvent;
 
 public class TypeAndDataBlock extends BaseBlock {
 
     @Override
-    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
-        super.onPlace(builder, event);
-        block.setType(material);
-        block.setData(data);
+    public void onPlace(BlocksPlaceEvent event) {
+        event.getBlock().setType(event.getMaterial());
+        event.getBlock().setData(event.getData());
     }
 }
 

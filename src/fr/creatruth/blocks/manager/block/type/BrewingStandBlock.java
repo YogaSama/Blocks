@@ -6,20 +6,24 @@
  */
 package fr.creatruth.blocks.manager.block.type;
 
-import fr.creatruth.blocks.manager.block.DataBlock;
-import fr.creatruth.development.item.ItemManager;
+import fr.creatruth.api.event.BlocksPlaceEvent;
+import fr.creatruth.api.event.PickBlockEvent;
+import fr.creatruth.blocks.manager.block.BaseBlock;
+import fr.creatruth.development.material.MatData;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.event.inventory.InventoryCreativeEvent;
 
-public class BrewingStandBlock extends DataBlock {
+public class BrewingStandBlock extends BaseBlock {
 
     @Override
-    public void onPick(Block target, InventoryCreativeEvent event) {
-        super.onPick(target, event);
+    public void onPlace(BlocksPlaceEvent event) {
+        event.getBlock().setData(event.getData());
+    }
 
-        if (cursor.getType() == Material.BREWING_STAND_ITEM && target.getType() == Material.BREWING_STAND) {
-            event.setCursor(ItemManager.getInstance().getBuilder(cursor.getType(), target.getData()).build());
+    @Override
+    public void onPick(PickBlockEvent event) {
+        if (event.isTargetType(Material.BREWING_STAND)) {
+            MatData md = new MatData(event.getCursor().getType(), event.getTarget().getData());
+            event.setCursor(itemManager().getBuilder(md).build());
         }
     }
 }

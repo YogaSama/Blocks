@@ -109,11 +109,15 @@ decoration:
     - "58"
     - "84"
     - "116"
-    - "23"
     - "25"
     - "46"
-    - "158"
     - "120"
+dispenser:
+    - "23"
+    - "key=23:8;texture=23"
+dropper:
+    - "158"
+    - "key=158:8;texture=158"
 chest:
     - "54"
     - "146"
@@ -339,7 +343,7 @@ light:
     - "89"
     - "key=91;special=159:1"
     - "123"
-    - "key=124;special=123"
+    - "key=124;texture=123"
     - "138"
     - "169"
     - "151"
@@ -433,11 +437,11 @@ melon_stem:
     - "key=105:7;texture=103"
 fence_gate:
     - "key=107;special=126"
-    - "key=183;special=126"
-    - "key=184;special=126"
-    - "key=185;special=126"
-    - "key=186;special=126"
-    - "key=187;special=126"
+    - "key=183;special=126:1"
+    - "key=184;special=126:2"
+    - "key=185;special=126:3"
+    - "key=186;special=126:4"
+    - "key=187;special=126:5"
 nether_warts:
     - "key=115;texture=87"
     - "key=115:1;texture=87"
@@ -474,7 +478,7 @@ wooden_slab:
     - "126:3"
     - "126:4"
     - "126:5"
-cacao:
+cocoa:
     - "key=127;texture=103"
     - "key=127:4;texture=103"
     - "key=127:8;texture=103"

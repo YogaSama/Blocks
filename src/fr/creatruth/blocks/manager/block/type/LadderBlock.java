@@ -6,27 +6,23 @@
  */
 package fr.creatruth.blocks.manager.block.type;
 
+import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.blocks.manager.block.OrientableBlock;
 import fr.creatruth.blocks.BMain;
-
-import fr.creatruth.development.item.ItemBuilder;
-import org.bukkit.event.block.BlockPlaceEvent;
 
 public class LadderBlock extends OrientableBlock {
 
     @Override
-    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
-        super.onPlace(builder, event);
-
+    public void onPlace(BlocksPlaceEvent event) {
         byte value;
 
-        switch (BMain.getData(player).getLastBlockFace()) {
+        switch (BMain.getData(event.getPlayer()).getLastBlockFace()) {
             case NORTH: value = 2; break;
             case EAST:  value = 5; break;
             case SOUTH: value = 3; break;
             case WEST:  value = 4; break;
             default: {
-                switch (getOrientation()) {
+                switch (getOrientation(event.getPlayer())) {
                     case 0 : value = 2; break;
                     case 1 : value = 5; break;
                     case 2 : value = 3; break;
@@ -35,7 +31,7 @@ public class LadderBlock extends OrientableBlock {
             }
         }
 
-        block.setType(material);
-        block.setData(value);
+        event.getBlock().setType(event.getMaterial());
+        event.getBlock().setData(value);
     }
 }

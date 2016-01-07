@@ -6,30 +6,22 @@
  */
 package fr.creatruth.blocks.manager.block.type;
 
+import fr.creatruth.api.event.BlocksPlaceEvent;
+import fr.creatruth.api.event.PickBlockEvent;
 import fr.creatruth.blocks.manager.block.BaseBlock;
-
-import fr.creatruth.development.item.ItemBuilder;
-import fr.creatruth.development.item.ItemManager;
-import org.bukkit.block.Block;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.inventory.InventoryCreativeEvent;
 
 public class LogBlock extends BaseBlock {
 
     @Override
-    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
-        super.onPlace(builder, event);
-
-        if (12 <= data && data <= 15)
-            block.setData(data);
+    public void onPlace(BlocksPlaceEvent event) {
+        if (12 <= event.getData() && event.getData() <= 15)
+            event.getBlock().setData(event.getData());
     }
 
     @Override
-    public void onPick(Block target, InventoryCreativeEvent event) {
-        super.onPick(target, event);
-
-        if (cursor.getType() == target.getType() && target.getData() >= 12) {
-            event.setCursor(ItemManager.getInstance().getBuilder(target).build());
+    public void onPick(PickBlockEvent event) {
+        if (event.getTarget().getData() >= 12) {
+            event.setCursor(itemManager().getBuilder(event.getTarget()).build());
         }
     }
 }

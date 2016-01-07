@@ -6,26 +6,25 @@
  */
 package fr.creatruth.blocks.manager.block.type;
 
+import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.blocks.BMain;
 import fr.creatruth.blocks.manager.block.OrientableBlock;
-import fr.creatruth.development.item.ItemBuilder;
 import org.bukkit.Material;
-import org.bukkit.event.block.BlockPlaceEvent;
 
 public class TorchBlock extends OrientableBlock {
 
     @Override
-    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
-        super.onPlace(builder, event);
+    public void onPlace(BlocksPlaceEvent event) {
+        super.onPlace(event);
 
-        if (material != Material.TORCH) {
+        if (event.getMaterial() != Material.TORCH) {
 
-            block.setType(material);
+            event.getBlock().setType(event.getMaterial());
             byte data = 0;
 
-            switch (BMain.getData(player).getLastBlockFace()) {
+            switch (BMain.getData(event.getPlayer()).getLastBlockFace()) {
                 case UP:
-                case DOWN:  data = (byte) 5;    break;
+                case DOWN:  data = (byte) 5; break;
 
                 case EAST:  data = (byte) 1; break;
                 case WEST:  data = (byte) 2; break;
@@ -33,7 +32,7 @@ public class TorchBlock extends OrientableBlock {
                 case NORTH: data = (byte) 4; break;
             }
 
-            block.setData(data);
+            event.getBlock().setData(data);
         }
     }
 }

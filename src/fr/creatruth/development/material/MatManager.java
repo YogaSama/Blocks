@@ -36,93 +36,115 @@ public class MatManager {
                 switch (mat) {
                     case LOG:
                     case LOG_2:
-                        base     = new LogBlock();
+                        base = new LogBlock();
                         break;
 
                     case RED_MUSHROOM:
-                        base     = new HugeMushroomBlock(Material.HUGE_MUSHROOM_2);
+                       base = new HugeMushroomBlock(Material.HUGE_MUSHROOM_2);
                         break;
 
                     case BROWN_MUSHROOM:
-                        base     = new HugeMushroomBlock(Material.HUGE_MUSHROOM_1);
+                        base = new HugeMushroomBlock(Material.HUGE_MUSHROOM_1);
                         break;
 
                     case STEP:
                     case WOOD_STEP:
                     case STONE_SLAB2:
-                        base     = new DoubleStepBlock();
+                        base = new DoubleStepBlock();
                         break;
 
                     case FURNACE:
                     case BURNING_FURNACE:
-                        base     = new FurnaceBlock();
+                        base = new FurnaceBlock();
                         break;
 
                     case DIRT:
-                        base     = new SoilBlock();
+                        base = new SoilBlock();
                         break;
 
                     case PISTON_EXTENSION:
-                        base     = new PistonExtensionBlock();
+                        base = new PistonExtensionBlock();
+                        break;
+
+                    case CAKE:
+                        base = new CakeBlock();
+                        break;
+
+                    case INK_SACK:
+                    case COCOA:
+                        base = new CocoaBlock();
                         break;
 
                     case BANNER:
-                        base     = new BannerBlock();
+                        base = new BannerBlock();
                         break;
 
                     case PORTAL:
-                        base    = new PortalBlock();
+                        base = new PortalBlock();
                         break;
 
                     case PAINTING:
-                        base    = new PaintingBlock();
+                        base = new PaintingBlock();
+                        break;
+
+                    case FENCE_GATE:
+                    case ACACIA_FENCE_GATE:
+                    case BIRCH_FENCE_GATE:
+                    case DARK_OAK_FENCE_GATE:
+                    case JUNGLE_FENCE_GATE:
+                    case SPRUCE_FENCE_GATE:
+                        base = new FenceGateBlock(mat);
                         break;
 
                     case FLOWER_POT:
                     case FLOWER_POT_ITEM:
-                        base    = new FlowerPotBlock();
+                        base = new FlowerPotBlock();
                         break;
 
                     case CARROT_ITEM:
                     case CARROT:
-                        base    = new SeedBlock(CARROT_ITEM, CARROT);
+                        base = new SeedBlock(CARROT_ITEM, CARROT);
                         break;
 
                     case MELON_SEEDS:
                     case MELON_STEM:
-                        base    = new SeedBlock(MELON_SEEDS, MELON_STEM);
+                        base = new SeedBlock(MELON_SEEDS, MELON_STEM);
                         break;
 
                     case POTATO_ITEM:
                     case BAKED_POTATO:
-                        base    = new SeedBlock(POTATO_ITEM, POTATO);
+                        base = new SeedBlock(POTATO_ITEM, POTATO);
                         break;
 
                     case PUMPKIN_SEEDS:
                     case PUMPKIN_STEM:
-                        base    = new SeedBlock(PUMPKIN_SEEDS, PUMPKIN_STEM);
+                        base = new SeedBlock(PUMPKIN_SEEDS, PUMPKIN_STEM);
                         break;
 
                     case SEEDS:
                     case CROPS:
-                        base    = new SeedBlock(SEEDS, CROPS);
+                        base = new SeedBlock(SEEDS, CROPS);
                         break;
 
                     case SUGAR_CANE:
                     case SUGAR_CANE_BLOCK:
-                        base    = new SeedBlock(SUGAR_CANE, SUGAR_CANE_BLOCK);
+                        base = new SeedBlock(SUGAR_CANE, SUGAR_CANE_BLOCK);
                         break;
 
                     case BED:
-                        base    = new BedItemBlock();
+                        base = new BedItemBlock();
                         break;
 
                     case BED_BLOCK:
-                        base    = new BedBlock();
+                        base = new BedBlock();
                         break;
 
                     case BREWING_STAND_ITEM:
-                        base    = new BrewingStandBlock();
+                        base = new BrewingStandBlock();
+                        break;
+
+                    case SKULL_ITEM:
+                        base = new HeadBlock();
                         break;
 
                     case ACACIA_STAIRS:

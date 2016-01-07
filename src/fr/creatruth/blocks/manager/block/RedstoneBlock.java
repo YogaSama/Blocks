@@ -6,14 +6,10 @@
  */
 package fr.creatruth.blocks.manager.block;
 
+import fr.creatruth.api.event.PickBlockEvent;
 import fr.creatruth.blocks.manager.utils.WorldUtils;
-import fr.creatruth.development.item.ItemBuilder;
-import fr.creatruth.development.item.ItemManager;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.inventory.InventoryCreativeEvent;
 
 public class RedstoneBlock extends OrientableBlock {
 
@@ -26,38 +22,28 @@ public class RedstoneBlock extends OrientableBlock {
     protected Material classicItem;
 
     @Override
-    public void onPick(Block target, InventoryCreativeEvent event) {
-        super.onPick(target, event);
-
-        if      (cursor.getType() == on         ) setCursor(event, on);
-        else if (cursor.getType() == classicItem) setCursor(event, classicItem);
+    public void onPick(PickBlockEvent event) {
+        if      (event.isCursorType(on)         ) setCursor(event, on);
+        else if (event.isCursorType(classicItem)) setCursor(event, classicItem);
     }
 
-    private void setCursor(InventoryCreativeEvent event, Material material) {
-        if (block.getType() == on)
-            event.setCursor(ItemManager.getInstance().getBuilder(material, (byte) 0).build());
+    private void setCursor(PickBlockEvent event, Material material) {
+        if (event.isTargetType(on))
+            event.setCursor(itemManager().getBuilder(material, (byte) 0).build());
 
-        else if (block.getType() == off)
-            event.setCursor(ItemManager.getInstance().getBuilder(material, (byte) 1).build());
+        else if (event.isTargetType(off))
+            event.setCursor(itemManager().getBuilder(material, (byte) 1).build());
     }
 
     /* -------------- */
     /* PLACE          */
     /* -------------- */
 
-    private World world;
-
-    @Override
-    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
-        super.onPlace(builder, event);
-        this.world = event.getPlayer().getWorld();
-    }
-
-    public void apply(Material material) {
+    public void apply(Block block, Material material) {
         try {
-            WorldUtils.setStaticWorld(world, true);
+            WorldUtils.setStaticWorld(block.getWorld(), true);
             block.setType(material);
-            WorldUtils.setStaticWorld(world, false);
+            WorldUtils.setStaticWorld(block.getWorld(), false);
         } catch (Exception e) {
             e.printStackTrace();
         }

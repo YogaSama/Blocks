@@ -6,27 +6,26 @@
  */
 package fr.creatruth.blocks.manager.block.type;
 
+import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.blocks.BMain;
 import fr.creatruth.blocks.manager.block.OrientableBlock;
-import fr.creatruth.development.item.ItemBuilder;
 import org.bukkit.Material;
-import org.bukkit.event.block.BlockPlaceEvent;
 
 public class TripWireHookBlock extends OrientableBlock {
 
     @Override
-    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
-        super.onPlace(builder, event);
+    public void onPlace(BlocksPlaceEvent event) {
+        super.onPlace(event);
 
-        if (material != Material.TRIPWIRE_HOOK) {
+        if (event.getMaterial() != Material.TRIPWIRE_HOOK) {
 
-            block.setType(material);
+            event.getBlock().setType(event.getMaterial());
             byte data = 0;
 
-            switch (BMain.getData(player).getLastBlockFace()) {
+            switch (BMain.getData(event.getPlayer()).getLastBlockFace()) {
                 case UP:
                 case DOWN:
-                    data = getOrientation(180);
+                    data = getOrientation(event.getPlayer(), 180);
                     break;
 
                 case EAST:  data = (byte) 3; break;
@@ -35,7 +34,7 @@ public class TripWireHookBlock extends OrientableBlock {
                 case NORTH: data = (byte) 2; break;
             }
 
-            block.setData(data);
+            event.getBlock().setData(data);
         }
     }
 }

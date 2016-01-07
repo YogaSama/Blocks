@@ -9,6 +9,7 @@ package fr.creatruth.blocks.manager.item;
 import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.inventory.ItemStack;
 
+@Deprecated
 public class DefaultPickableItem extends PickableItem {
 
     public DefaultPickableItem(ItemStack item) {

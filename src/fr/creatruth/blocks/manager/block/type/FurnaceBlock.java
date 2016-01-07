@@ -6,30 +6,26 @@
  */
 package fr.creatruth.blocks.manager.block.type;
 
+import fr.creatruth.api.event.BlocksPlaceEvent;
+import fr.creatruth.api.event.PickBlockEvent;
 import fr.creatruth.blocks.manager.block.BaseBlock;
-import fr.creatruth.development.item.ItemBuilder;
-import fr.creatruth.development.item.ItemManager;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.inventory.InventoryCreativeEvent;
 
 public class FurnaceBlock extends BaseBlock {
 
     @Override
-    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
-        super.onPlace(builder, event);
+    public void onPlace(BlocksPlaceEvent event) {
+        Block block = event.getBlock();
         byte data = block.getData();
-        block.setType(builder.getKey().getMaterial());
+        block.setType(event.getMaterial());
         block.setData(data);
     }
 
     @Override
-    public void onPick(Block target, InventoryCreativeEvent event) {
-        super.onPick(target, event);
-
-        if (cursor.getType() == Material.FURNACE && target.getType() == Material.BURNING_FURNACE) {
-            event.setCursor(ItemManager.getInstance().getBuilder(target.getType(), (byte) 0).build());
+    public void onPick(PickBlockEvent event) {
+        if (event.isCursorType(Material.FURNACE) && event.isTargetType(Material.BURNING_FURNACE)) {
+            event.setCursor(itemManager().getBuilder(event.getTarget().getType(), (byte) 0).build());
         }
     }
 }

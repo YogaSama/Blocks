@@ -6,6 +6,8 @@
  */
 package fr.creatruth.blocks.listener;
 
+import fr.creatruth.api.event.BlocksPlaceEvent;
+import fr.creatruth.api.event.SwitchBlockEvent;
 import fr.creatruth.blocks.configuration.Config;
 import fr.creatruth.blocks.manager.block.BaseBlock;
 import fr.creatruth.blocks.manager.tools.BiomeTool;
@@ -21,6 +23,7 @@ import fr.creatruth.development.material.MatData;
 import fr.creatruth.development.material.MatManager;
 import fr.creatruth.development.material.State;
 import fr.creatruth.development.item.*;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -112,18 +115,19 @@ public class InteractListener extends AListener {
 
                     ItemList list = ItemManager.getInstance().get(md.toString());
                     if (list != null) {
-                        switch (action) {
-                            case RIGHT_CLICK_AIR:
-                            case RIGHT_CLICK_BLOCK:
-                                player.setItemInHand(list.nextItem(item));
-                                break;
-                            case LEFT_CLICK_AIR:
-                            case LEFT_CLICK_BLOCK:
-                                player.setItemInHand(list.previousItem(item));
-                                break;
+                        SwitchBlockEvent.Direction direction = SwitchBlockEvent.Direction.from(action);
+                        if (direction != null) {
+                            SwitchBlockEvent switchEvent = new SwitchBlockEvent(player, direction, list);
+                            Bukkit.getPluginManager().callEvent(switchEvent);
+                            if (!switchEvent.isCancelled()) {
+                                if (switchEvent.getDirection() == SwitchBlockEvent.Direction.NEXT)
+                                    player.setItemInHand(list.nextItem(item));
+                                else
+                                    player.setItemInHand(list.previousItem(item));
+                                event.setCancelled(true);
+                            }
                         }
                     }
-                    event.setCancelled(true);
                 }
             }
             else if (action == Action.RIGHT_CLICK_BLOCK && pd.has(PlayerData.Toggle.INFO)) {
@@ -148,16 +152,14 @@ public class InteractListener extends AListener {
         if (builder == null)
             return;
 
-        /*OldMaterials mats = OldMaterials.getMaterials(builder.getKey().getMaterial());
-        if (mats == null)
-            return;
-
-        BaseBlock baseBlock = mats.getBaseBlock();*/
-
         State state = MatManager.getState(builder.getKey().getMaterial());
         BaseBlock baseBlock = state.getBase();
 
-        if (baseBlock != null) baseBlock.onPlace(builder, event);
+        if (baseBlock != null) {
+            BlocksPlaceEvent blocksEvent = new BlocksPlaceEvent(builder, event);
+            Bukkit.getPluginManager().callEvent(blocksEvent);
+            if (!blocksEvent.isCancelled()) baseBlock.onPlace(blocksEvent);
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)

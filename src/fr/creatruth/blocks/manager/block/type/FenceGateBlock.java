@@ -6,18 +6,22 @@
  */
 package fr.creatruth.blocks.manager.block.type;
 
+import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.blocks.manager.block.OrientableBlock;
 
-import fr.creatruth.development.item.ItemBuilder;
-import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.Material;
 
 public class FenceGateBlock extends OrientableBlock {
 
-    @Override
-    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
-        super.onPlace(builder, event);
+    private Material material;
 
-        block.setType(material);
-        block.setData((byte) (getOrientation() + (builder.getKey().getData() * 4)));
+    public FenceGateBlock(Material material) {
+        this.material = material;
+    }
+
+    @Override
+    public void onPlace(BlocksPlaceEvent event) {
+        event.getBlock().setType(material);
+        event.getBlock().setData((byte) (getOrientation(event.getPlayer()) + event.getData()));
     }
 }

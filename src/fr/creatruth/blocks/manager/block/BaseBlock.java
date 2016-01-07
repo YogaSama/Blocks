@@ -6,32 +6,18 @@
  */
 package fr.creatruth.blocks.manager.block;
 
-import fr.creatruth.development.item.ItemBuilder;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.inventory.InventoryCreativeEvent;
-import org.bukkit.inventory.ItemStack;
+import fr.creatruth.api.event.BlocksPlaceEvent;
+import fr.creatruth.api.event.PickBlockEvent;
+import fr.creatruth.development.item.ItemManager;
 
 public class BaseBlock {
 
-    protected Material  material;
-    protected byte      data;
-
-    protected Player    player;
-    protected Block     block;
-
-    protected ItemStack cursor;
-
-    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
-        material = builder.getKey().getMaterial();
-        data     = (byte) builder.getKey().getData();
-        player   = event.getPlayer();
-        block    = event.getBlock();
+    protected ItemManager itemManager() {
+        return ItemManager.getInstance();
+    }
+    public void onPlace(BlocksPlaceEvent event) {
     }
 
-    public void onPick(Block target, InventoryCreativeEvent event) {
-        cursor = event.getCursor();
+    public void onPick(PickBlockEvent event) {
     }
 }

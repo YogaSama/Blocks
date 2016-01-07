@@ -11,6 +11,7 @@ import org.bukkit.block.Block;
 import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.inventory.ItemStack;
 
+@Deprecated
 public class PickableItem extends BaseItem {
 
     protected Block block;

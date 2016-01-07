@@ -6,20 +6,18 @@
  */
 package fr.creatruth.blocks.manager.block.type;
 
+import fr.creatruth.api.event.PickBlockEvent;
 import fr.creatruth.blocks.manager.block.DataBlock;
-import fr.creatruth.development.item.ItemManager;
+import fr.creatruth.development.material.MatData;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.event.inventory.InventoryCreativeEvent;
 
 public class CauldronBlock extends DataBlock {
 
     @Override
-    public void onPick(Block target, InventoryCreativeEvent event) {
-        super.onPick(target, event);
-
-        if (cursor.getType() == Material.CAULDRON_ITEM && target.getType() == Material.CAULDRON) {
-            event.setCursor(ItemManager.getInstance().getBuilder(cursor.getType(), target.getData()).build());
+    public void onPick(PickBlockEvent event) {
+        if (event.isTargetType(Material.CAULDRON)) {
+            MatData md = new MatData(event.getCursor().getType(), event.getTarget().getData());
+            event.setCursor(itemManager().getBuilder(md).build());
         }
     }
 }

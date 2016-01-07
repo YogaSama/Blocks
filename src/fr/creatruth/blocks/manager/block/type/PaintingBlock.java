@@ -6,20 +6,17 @@
  */
 package fr.creatruth.blocks.manager.block.type;
 
+import fr.creatruth.api.event.PickBlockEvent;
 import fr.creatruth.blocks.manager.block.BaseBlock;
-import fr.creatruth.blocks.manager.item.BaseItem;
-import fr.creatruth.blocks.manager.utils.PaintingUtils;
-
 import fr.creatruth.development.item.ItemBuilder;
+import fr.creatruth.development.material.MatData;
+import org.bukkit.Art;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Painting;
 import org.bukkit.event.hanging.HangingPlaceEvent;
-import org.bukkit.event.inventory.InventoryCreativeEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import java.util.HashSet;
@@ -28,8 +25,8 @@ import java.util.Set;
 public class PaintingBlock extends BaseBlock {
 
     @Override
-    public void onPick(Block target, InventoryCreativeEvent event) {
-        HumanEntity human = event.getWhoClicked();
+    public void onPick(PickBlockEvent event) {
+        HumanEntity human = event.getPlayer();
         Set<Painting> paintings = new HashSet<>();
 
         for (Entity e : human.getNearbyEntities(5, 5, 5)) {
@@ -60,13 +57,15 @@ public class PaintingBlock extends BaseBlock {
         }
 
         if (painting != null) {
-            /*getItemBuilder().setData((byte) painting.getArt().getId());
-            updateName();
-            event.setCursor(getItem());*/
+            MatData md = new MatData(Material.PAINTING, (byte) painting.getArt().getId());
+            event.setCursor(itemManager().getBuilder(md).build());
         }
     }
 
     public void onPlaceEntity(ItemBuilder builder, HangingPlaceEvent event) {
-        PaintingUtils.setArt(event.getEntity(), builder.getKey().getData());
+        Entity entity = event.getEntity();
+        Painting painting = entity instanceof Painting ? (Painting) entity : null;
+        if (painting != null)
+            painting.setArt(Art.getById(builder.getKey().getData()));
     }
 }

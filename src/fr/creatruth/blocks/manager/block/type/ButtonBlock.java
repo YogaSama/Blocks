@@ -6,27 +6,24 @@
  */
 package fr.creatruth.blocks.manager.block.type;
 
+import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.blocks.manager.block.BaseBlock;
 import fr.creatruth.blocks.BMain;
-
-import fr.creatruth.development.item.ItemBuilder;
-import org.bukkit.event.block.BlockPlaceEvent;
 
 public class ButtonBlock extends BaseBlock {
 
     @Override
-    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
-        super.onPlace(builder, event);
-        block.setType(material);
+    public void onPlace(BlocksPlaceEvent event) {
+        event.getBlock().setType(event.getMaterial());
 
         byte data = 0;
-        if (this.data == 1) data = 8;
-        switch (BMain.getData(player).getLastBlockFace()) {
+        if (event.getData() == 1) data = 8;
+        switch (BMain.getData(event.getPlayer()).getLastBlockFace()) {
             case EAST:  data += 1; break;
             case WEST:  data += 2; break;
             case SOUTH: data += 3; break;
             case NORTH: data += 4; break;
         }
-        block.setData(data);
+        event.getBlock().setData(data);
     }
 }

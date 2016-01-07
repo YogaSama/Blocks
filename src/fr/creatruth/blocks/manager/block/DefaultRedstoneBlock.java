@@ -6,17 +6,14 @@
  */
 package fr.creatruth.blocks.manager.block;
 
-import fr.creatruth.development.item.ItemBuilder;
+import fr.creatruth.api.event.BlocksPlaceEvent;
 import org.bukkit.Material;
-import org.bukkit.event.block.BlockPlaceEvent;
 
 public class DefaultRedstoneBlock extends RedstoneBlock {
 
     @Override
-    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
-        super.onPlace(builder, event);
-
-        apply(Material.REDSTONE_WIRE);
-        block.setData(data);
+    public void onPlace(BlocksPlaceEvent event) {
+        apply(event.getBlock(), Material.REDSTONE_WIRE);
+        event.getBlock().setData(event.getData());
     }
 }

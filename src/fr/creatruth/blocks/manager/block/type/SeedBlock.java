@@ -6,15 +6,11 @@
  */
 package fr.creatruth.blocks.manager.block.type;
 
-import fr.creatruth.blocks.manager.block.BaseBlock;
-import fr.creatruth.development.item.ItemBuilder;
-import fr.creatruth.development.item.ItemManager;
+import fr.creatruth.api.event.PickBlockEvent;
+import fr.creatruth.blocks.manager.block.TypeAndDataBlock;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.inventory.InventoryCreativeEvent;
 
-public class SeedBlock extends BaseBlock {
+public class SeedBlock extends TypeAndDataBlock {
 
     protected Material seed;
     protected Material material;
@@ -25,19 +21,9 @@ public class SeedBlock extends BaseBlock {
     }
 
     @Override
-    public void onPick(Block target, InventoryCreativeEvent event) {
-        super.onPick(target, event);
-
-        if (cursor.getType() == seed && target.getType() == material) {
-            event.setCursor(ItemManager.getInstance().getBuilder(seed, target.getData()).build());
+    public void onPick(PickBlockEvent event) {
+        if (event.isCursorType(seed) && event.isTargetType(material)) {
+            event.setCursor(itemManager().getBuilder(seed, event.getTarget().getData()).build());
         }
-    }
-
-    @Override
-    public void onPlace(ItemBuilder builder, BlockPlaceEvent event) {
-        super.onPlace(builder, event);
-
-        block.setType(material);
-        block.setData(data);
     }
 }
