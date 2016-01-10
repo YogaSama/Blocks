@@ -31,13 +31,8 @@ public class PlayerData {
         PlayerDataFolder pdf = Config.playerDataFolder;
         File file = pdf.getFile(uuid);
 
-        this.toggles.put(Toggle.INFO, pdf.getValue(file, Toggle.INFO, Config.isToggleInfo()));
-        this.toggles.put(Toggle.BLOCK, pdf.getValue(file, Toggle.BLOCK, Config.isToggleBlock()));
-        this.toggles.put(Toggle.MIDDLE, pdf.getValue(file, Toggle.MIDDLE, Config.isToggleMiddle()));
-        this.toggles.put(Toggle.CHANGE, pdf.getValue(file, Toggle.CHANGE, Config.isToggleChange()));
-
-        this.sneak = false;
-        this.lastBlockFace = null;
+        for (Toggle toggle : Toggle.values())
+            this.toggles.put(toggle, pdf.getValue(file, toggle, Config.isToggle(toggle)));
     }
 
     public boolean has(Toggle toggle) {

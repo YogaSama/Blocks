@@ -21,7 +21,7 @@ public class SneakTask implements Runnable {
         this.taskName = taskName;
         this.player = player;
         this.playerData = BMain.getData(player);
-        this.locY = player.getLocation().getY();
+        this.locY = player.getLocation().getY() + 2;
     }
 
     @Override

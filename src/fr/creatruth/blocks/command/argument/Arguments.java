@@ -6,8 +6,8 @@
  */
 package fr.creatruth.blocks.command.argument;
 
-import fr.creatruth.blocks.manager.utils.MaterialUtils;
-import fr.creatruth.blocks.manager.utils.NumberUtils;
+import fr.creatruth.blocks.utils.MaterialUtils;
+import fr.creatruth.blocks.utils.NumberUtils;
 import fr.creatruth.development.material.MatData;
 import org.bukkit.Bukkit;
 import org.bukkit.World;

@@ -1,6 +1,6 @@
 package fr.creatruth.development.floatingtext.packet;
 
-import fr.creatruth.blocks.manager.utils.PlayerUtils;
+import fr.creatruth.blocks.utils.PlayerUtils;
 import fr.creatruth.development.reflection.FieldAccess;
 import org.apache.commons.lang3.concurrent.ConcurrentException;
 import org.apache.commons.lang3.concurrent.LazyInitializer;

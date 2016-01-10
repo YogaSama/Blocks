@@ -1,8 +1,8 @@
 package fr.creatruth.development.item;
 
-import fr.creatruth.blocks.manager.tools.ItemPattern;
-import fr.creatruth.blocks.manager.utils.ItemUtils;
-import fr.creatruth.blocks.manager.utils.MaterialUtils;
+import fr.creatruth.blocks.tools.ItemPattern;
+import fr.creatruth.blocks.utils.ItemUtils;
+import fr.creatruth.blocks.utils.MaterialUtils;
 import fr.creatruth.development.material.MatData;
 import org.bukkit.inventory.ItemStack;
 

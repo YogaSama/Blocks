@@ -6,14 +6,11 @@
  */
 package fr.creatruth.blocks.configuration;
 
-import fr.creatruth.blocks.manager.utils.MaterialUtils;
+import fr.creatruth.blocks.utils.MaterialUtils;
 import fr.creatruth.blocks.BMain;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.io.*;
 import java.util.*;
 
 public class PhysicsFile extends AConfigFile {

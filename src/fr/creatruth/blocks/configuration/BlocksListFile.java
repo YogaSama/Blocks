@@ -7,8 +7,8 @@
 package fr.creatruth.blocks.configuration;
 
 import fr.creatruth.blocks.BMain;
-import fr.creatruth.blocks.manager.utils.MaterialUtils;
-import fr.creatruth.blocks.manager.utils.NumberUtils;
+import fr.creatruth.blocks.utils.MaterialUtils;
+import fr.creatruth.blocks.utils.NumberUtils;
 import fr.creatruth.development.item.ItemBuilder;
 import fr.creatruth.development.item.ItemManager;
 import fr.creatruth.development.material.MatData;

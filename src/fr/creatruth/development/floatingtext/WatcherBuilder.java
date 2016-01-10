@@ -60,9 +60,9 @@ public class WatcherBuilder implements Cloneable {
     }
 
     public Object build() {
-        ClassAccess access = ClassAccess.forName(PackAPI.NMS.get("DataWatcher"));
-        Class       entity = ClassAccess.forName(PackAPI.NMS.get("Entity")).getClazz();
-        Object          wc = access.getConstructor(entity).newInstance(new Object[]{null});
+        ClassAccess<?> access = ClassAccess.forName(PackAPI.NMS.get("DataWatcher"));
+        Class          entity = ClassAccess.forName(PackAPI.NMS.get("Entity")).getClazz();
+        Object         wc = access.getConstructor(entity).newInstance(new Object[]{null});
 
         for (Entry entry : getEntryList()) {
             int id = entry.index.getIndex();

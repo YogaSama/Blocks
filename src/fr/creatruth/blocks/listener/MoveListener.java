@@ -6,7 +6,7 @@
  */
 package fr.creatruth.blocks.listener;
 
-import fr.creatruth.blocks.manager.tools.Meter;
+import fr.creatruth.blocks.tools.Meter;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

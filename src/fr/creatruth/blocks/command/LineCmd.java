@@ -8,7 +8,7 @@ package fr.creatruth.blocks.command;
 
 import fr.creatruth.blocks.command.handle.ACommand;
 import fr.creatruth.blocks.configuration.Config;
-import fr.creatruth.blocks.manager.tools.Face;
+import fr.creatruth.blocks.tools.Face;
 import fr.creatruth.blocks.messages.Message;
 import fr.creatruth.blocks.messages.help.HelpHandler;
 import fr.creatruth.blocks.messages.help.PluginHelp;

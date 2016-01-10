@@ -1,6 +1,6 @@
 package fr.creatruth.development.material;
 
-import fr.creatruth.blocks.manager.block.BaseBlock;
+import fr.creatruth.blocks.block.BaseBlock;
 
 import java.util.Collection;
 

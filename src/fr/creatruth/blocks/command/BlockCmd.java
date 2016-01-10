@@ -93,8 +93,8 @@ public class BlockCmd extends ACommand {
                         target.getInventory().addItem(ib.build());
 
                         String mat = matData.getMaterial().name().toLowerCase()  +
-                                     (matData.getData() == 0 ? "" : "§f data §b" +
-                                     matData.getData());
+                                     (ib.getKey().getData() == 0 ? "" : "§f data §b" +
+                                     ib.getKey().getData());
                         Message.COMMAND_BLOCK_RECEIVED.send(target, Message.Type.BLOCK, mat);
 
                         if (!player.equals(target))

@@ -6,11 +6,11 @@
  */
 package fr.creatruth.blocks.listener;
 
-import fr.creatruth.blocks.manager.block.BaseBlock;
-import fr.creatruth.blocks.manager.block.type.PaintingBlock;
+import fr.creatruth.blocks.block.BaseBlock;
+import fr.creatruth.blocks.block.type.PaintingBlock;
 
-import fr.creatruth.blocks.manager.tools.ItemPattern;
-import fr.creatruth.blocks.manager.utils.ItemUtils;
+import fr.creatruth.blocks.tools.ItemPattern;
+import fr.creatruth.blocks.utils.ItemUtils;
 import fr.creatruth.development.item.ItemManager;
 import fr.creatruth.development.material.MatData;
 import fr.creatruth.development.material.MatManager;

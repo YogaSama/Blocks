@@ -1,7 +1,7 @@
 package fr.creatruth.development.item;
 
-import fr.creatruth.blocks.manager.utils.ItemUtils;
-import fr.creatruth.blocks.manager.utils.NumberUtils;
+import fr.creatruth.blocks.utils.ItemUtils;
+import fr.creatruth.blocks.utils.NumberUtils;
 import org.bukkit.inventory.ItemStack;
 
 public class ItemEncoder {

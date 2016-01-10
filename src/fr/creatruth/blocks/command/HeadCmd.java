@@ -11,7 +11,7 @@ import fr.creatruth.blocks.messages.Message;
 import fr.creatruth.blocks.messages.help.HelpHandler;
 import fr.creatruth.blocks.messages.help.PluginHelp;
 import fr.creatruth.blocks.player.Perm;
-import fr.creatruth.blocks.manager.utils.SkullUtils;
+import fr.creatruth.blocks.utils.SkullUtils;
 
 import org.bukkit.entity.Player;
 

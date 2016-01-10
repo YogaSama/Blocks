@@ -9,20 +9,20 @@ package fr.creatruth.blocks.listener;
 import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.api.event.SwitchBlockEvent;
 import fr.creatruth.blocks.configuration.Config;
-import fr.creatruth.blocks.manager.block.BaseBlock;
-import fr.creatruth.blocks.manager.tools.BiomeTool;
-import fr.creatruth.blocks.manager.tools.ItemPattern;
-import fr.creatruth.blocks.manager.utils.BlockUtils;
-import fr.creatruth.blocks.manager.utils.ItemUtils;
-import fr.creatruth.blocks.manager.tools.Meter;
+import fr.creatruth.blocks.block.BaseBlock;
+import fr.creatruth.blocks.tools.BiomeTool;
+import fr.creatruth.blocks.tools.ItemPattern;
+import fr.creatruth.blocks.utils.BlockUtils;
+import fr.creatruth.blocks.utils.ItemUtils;
+import fr.creatruth.blocks.tools.Meter;
 import fr.creatruth.blocks.BMain;
 import fr.creatruth.blocks.player.PlayerData;
-
-import fr.creatruth.blocks.manager.utils.InfoUtils;
+import fr.creatruth.blocks.utils.InfoUtils;
 import fr.creatruth.development.material.MatData;
 import fr.creatruth.development.material.MatManager;
 import fr.creatruth.development.material.State;
 import fr.creatruth.development.item.*;
+
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -113,7 +113,7 @@ public class InteractListener extends AListener {
                     else
                         return;
 
-                    ItemList list = ItemManager.getInstance().get(md.toString());
+                    ItemList list = ItemManager.getInstance().get(md);
                     if (list != null) {
                         SwitchBlockEvent.Direction direction = SwitchBlockEvent.Direction.from(action);
                         if (direction != null) {

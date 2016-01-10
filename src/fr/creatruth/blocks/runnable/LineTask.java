@@ -3,7 +3,7 @@ package fr.creatruth.blocks.runnable;
 
 import fr.creatruth.blocks.BMain;
 import fr.creatruth.blocks.configuration.Config;
-import fr.creatruth.blocks.manager.tools.Face;
+import fr.creatruth.blocks.tools.Face;
 import fr.creatruth.blocks.player.Perm;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

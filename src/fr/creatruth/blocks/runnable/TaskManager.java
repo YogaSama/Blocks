@@ -6,18 +6,12 @@
  */
 package fr.creatruth.blocks.runnable;
 
-import fr.creatruth.blocks.configuration.Config;
-import fr.creatruth.blocks.manager.item.BaseItem;
-import fr.creatruth.blocks.manager.tools.Attribute;
-import fr.creatruth.blocks.manager.tools.Face;
 import org.bukkit.Bukkit;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import java.util.HashMap;
 import java.util.Random;
-import java.util.UUID;
 
 import static fr.creatruth.blocks.BMain.*;
 
@@ -90,12 +84,12 @@ public class TaskManager {
         runSyncRepeatingTask(taskName, new SneakTask(taskName, player), 3);
     }
 
-    public static void lineTask(Player player, BaseItem baseItem, Block block) {
+    /*public static void lineTask(Player player, BaseItem baseItem, Block block) {
         String taskName = UUID.randomUUID().toString();
         Attribute atb = baseItem.getItemBuilder().getAttribute();
         int length = atb.getInt(0);
         Face face = atb.getFace(1);
         Runnable r = new LineTask(taskName, player, block, face, length);
         TaskManager.runSyncRepeatingTask(taskName, r, Config.getLineDelayPerBlock());
-    }
+    }*/
 }

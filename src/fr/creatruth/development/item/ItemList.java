@@ -1,8 +1,9 @@
 package fr.creatruth.development.item;
 
-import fr.creatruth.blocks.manager.tools.ItemPattern;
-import fr.creatruth.blocks.manager.utils.ItemUtils;
+import fr.creatruth.blocks.tools.ItemPattern;
+import fr.creatruth.blocks.utils.ItemUtils;
 import fr.creatruth.development.material.MatData;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.LinkedList;
@@ -71,6 +72,15 @@ public class ItemList {
     public ItemBuilder getBuilder(MatData md) {
         for (ItemBuilder ib : list) {
             if (ib.getKey().equals(md))
+                return ib;
+        }
+        return null;
+    }
+
+    public ItemBuilder getBuilder(Material material, short data) {
+        for (ItemBuilder ib : list) {
+            if (    ib.getKey().getMaterial().getId() == material.getId() &&
+                    ib.getKey().getData()             == data)
                 return ib;
         }
         return null;

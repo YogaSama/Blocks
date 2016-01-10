@@ -6,10 +6,9 @@
  */
 package fr.creatruth.blocks.inventory.item;
 
-import fr.creatruth.blocks.manager.utils.ItemUtils;
+import fr.creatruth.blocks.utils.ItemUtils;
 import fr.creatruth.development.item.ItemEncoder;
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
 public class RegisteredItem {

@@ -6,7 +6,7 @@
  */
 package fr.creatruth.blocks.listener;
 
-import fr.creatruth.blocks.manager.tools.ItemPattern;
+import fr.creatruth.blocks.tools.ItemPattern;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

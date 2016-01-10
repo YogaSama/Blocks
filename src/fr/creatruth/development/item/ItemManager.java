@@ -1,7 +1,7 @@
 package fr.creatruth.development.item;
 
-import fr.creatruth.blocks.manager.tools.ItemPattern;
-import fr.creatruth.blocks.manager.utils.ItemUtils;
+import fr.creatruth.blocks.tools.ItemPattern;
+import fr.creatruth.blocks.utils.ItemUtils;
 import fr.creatruth.development.material.MatData;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -12,10 +12,10 @@ import java.util.*;
 public class ItemManager {
 
     private static ItemManager     instance = new ItemManager();
-    private Map<String, ItemList>  map;
+    private Map<Integer, Map<Short, ItemList>> newMap;
 
     public ItemManager() {
-        this.map = new HashMap<>();
+        this.newMap = new HashMap<>();
     }
 
     public void load(List<String> strings) {
@@ -23,33 +23,28 @@ public class ItemManager {
 
         for (String s : strings) {
             ItemBuilder builder = new ItemBuilder(s);
+            int id = builder.getKey().getMaterial().getId();
 
-            if (builder.getKey().getMaterial().getId() > 0) {
+            if (id > 0) {
                 list.add(builder);
-                ItemList old = this.map.put(builder.getKey().toString(), list);
+                if (!newMap.containsKey(id))
+                    newMap.put(id, new HashMap<Short, ItemList>());
 
-                if (old != null && old != list) {
-                    List<ItemBuilder> removed = new ArrayList<>();
-                    for (ItemBuilder oldBuilder : old.getList()) {
-                        if (oldBuilder.getKey().equals(builder.getKey()))
-                            removed.add(oldBuilder);
-                    }
-                    old.getList().removeAll(removed);
-                }
+                newMap.get(id).put(builder.getKey().getData(), list);
             }
         }
     }
 
+    public ItemList get(MatData md) {
+        return get(md.getMaterial().getId(), md.getData());
+    }
+
     public ItemList get(int id) {
-        return get(id, 0);
+        return get(id, (short) 0);
     }
 
-    public ItemList get(int id, int data) {
-        return get(id + ":" + data);
-    }
-
-    public ItemList get(String input) {
-        return map.get(input);
+    public ItemList get(int id, short data) {
+        return newMap.get(id).get(data);
     }
 
     public ItemBuilder getBuilder(ItemStack item) {
@@ -60,13 +55,24 @@ public class ItemManager {
         return getBuilder(block.getType(), block.getData());
     }
 
-    public ItemBuilder getBuilder(Material material, byte data) {
-        return getBuilder(new MatData(material, data));
+    public ItemBuilder getBuilder(Material material, short data) {
+        Map<Short, ItemList> map = newMap.get(material.getId());
+        if (map.keySet().contains(data))
+            return map.get(data).getBuilder(material, data);
+
+        int d       = Integer.MAX_VALUE;
+        short nData = 0;
+        for (Short s : map.keySet()) {
+            if (Math.abs(s - data) < d) {
+                d     = Math.abs(s - data);
+                nData = s;
+            }
+        }
+        return map.get(nData).getBuilder(material, nData);
     }
 
     public ItemBuilder getBuilder(MatData md) {
-        ItemList list = map.get(md.toString());
-        return list  != null ? list.getBuilder(md) : null;
+        return getBuilder(md.getMaterial(), md.getData());
     }
 
     public static ItemManager getInstance() {

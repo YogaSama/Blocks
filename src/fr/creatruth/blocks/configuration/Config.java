@@ -7,9 +7,9 @@
 package fr.creatruth.blocks.configuration;
 
 import fr.creatruth.blocks.BMain;
-import fr.creatruth.blocks.manager.tools.BiomeTool;
-import fr.creatruth.blocks.manager.tools.Meter;
-import fr.creatruth.blocks.manager.utils.MaterialUtils;
+import fr.creatruth.blocks.tools.BiomeTool;
+import fr.creatruth.blocks.tools.Meter;
+import fr.creatruth.blocks.utils.MaterialUtils;
 import fr.creatruth.blocks.player.PlayerData;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -149,21 +149,8 @@ public class Config {
         return fileConfig.getBoolean(DRAGONEGG_TELEPORTATION, false);
     }
 
-
-    public static boolean isToggleInfo() {
-        return fileConfig.getBoolean(TOGGLE_INFO, true);
-    }
-
-    public static boolean isToggleMiddle() {
-        return fileConfig.getBoolean(TOGGLE_MIDDLE, true);
-    }
-
-    public static boolean isToggleBlock() {
-        return fileConfig.getBoolean(TOGGLE_BLOCK, true);
-    }
-
-    public static boolean isToggleChange() {
-        return fileConfig.getBoolean(TOGGLE_CHANGE, true);
+    public static boolean isToggle(PlayerData.Toggle toggle) {
+        return fileConfig.getBoolean("toggle." + toggle.name().toLowerCase(), true);
     }
 
     /**

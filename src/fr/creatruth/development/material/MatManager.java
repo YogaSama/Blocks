@@ -1,9 +1,9 @@
 package fr.creatruth.development.material;
 
-import fr.creatruth.blocks.manager.block.BaseBlock;
-import fr.creatruth.blocks.manager.block.TypeAndDataBlock;
-import fr.creatruth.blocks.manager.block.type.*;
-import fr.creatruth.blocks.manager.utils.DataUtils;
+import fr.creatruth.blocks.block.BaseBlock;
+import fr.creatruth.blocks.block.TypeAndDataBlock;
+import fr.creatruth.blocks.block.type.*;
+import fr.creatruth.blocks.utils.DataUtils;
 import org.bukkit.Material;
 
 import java.util.*;
@@ -40,11 +40,11 @@ public class MatManager {
                         break;
 
                     case RED_MUSHROOM:
-                       base = new HugeMushroomBlock(Material.HUGE_MUSHROOM_2);
+                        base = new DifferentItemBlock(mat, HUGE_MUSHROOM_2, false);
                         break;
 
                     case BROWN_MUSHROOM:
-                        base = new HugeMushroomBlock(Material.HUGE_MUSHROOM_1);
+                        base = new DifferentItemBlock(mat, HUGE_MUSHROOM_1, false);
                         break;
 
                     case STEP:
@@ -60,6 +60,11 @@ public class MatManager {
 
                     case DIRT:
                         base = new SoilBlock();
+                        break;
+
+                    case PISTON_BASE:
+                    case PISTON_STICKY_BASE:
+                        base = new PistonBlock();
                         break;
 
                     case PISTON_EXTENSION:
@@ -87,6 +92,14 @@ public class MatManager {
                         base = new PaintingBlock();
                         break;
 
+                    case REDSTONE_LAMP_OFF:
+                        base = new RedstoneLampBlock();
+                        break;
+
+                    case CAULDRON_ITEM:
+                        base = new DifferentItemBlock(mat, CAULDRON);
+                        break;
+
                     case FENCE_GATE:
                     case ACACIA_FENCE_GATE:
                     case BIRCH_FENCE_GATE:
@@ -102,33 +115,31 @@ public class MatManager {
                         break;
 
                     case CARROT_ITEM:
-                    case CARROT:
-                        base = new SeedBlock(CARROT_ITEM, CARROT);
+                        base = new DifferentItemBlock(mat, CARROT);
+                        break;
+
+                    case DAYLIGHT_DETECTOR:
+                        base = new DifferentItemBlock(mat, DAYLIGHT_DETECTOR_INVERTED);
                         break;
 
                     case MELON_SEEDS:
-                    case MELON_STEM:
-                        base = new SeedBlock(MELON_SEEDS, MELON_STEM);
+                        base = new DifferentItemBlock(mat, MELON_STEM);
                         break;
 
                     case POTATO_ITEM:
-                    case BAKED_POTATO:
-                        base = new SeedBlock(POTATO_ITEM, POTATO);
+                        base = new DifferentItemBlock(mat, POTATO);
                         break;
 
                     case PUMPKIN_SEEDS:
-                    case PUMPKIN_STEM:
-                        base = new SeedBlock(PUMPKIN_SEEDS, PUMPKIN_STEM);
+                        base = new DifferentItemBlock(mat, PUMPKIN_STEM);
                         break;
 
                     case SEEDS:
-                    case CROPS:
-                        base = new SeedBlock(SEEDS, CROPS);
+                        base = new DifferentItemBlock(mat, CROPS);
                         break;
 
                     case SUGAR_CANE:
-                    case SUGAR_CANE_BLOCK:
-                        base = new SeedBlock(SUGAR_CANE, SUGAR_CANE_BLOCK);
+                        base = new DifferentItemBlock(mat, SUGAR_CANE_BLOCK);
                         break;
 
                     case BED:
@@ -163,9 +174,21 @@ public class MatManager {
                     case ANVIL:
                     case QUARTZ_BLOCK:
                     case HOPPER:
-                    case PISTON_STICKY_BASE:
-                    case PISTON_BASE:
                     case HAY_BLOCK:
+                    case PUMPKIN:
+                    case JACK_O_LANTERN:
+                    case DISPENSER:
+                    case DROPPER:
+                    case TORCH:
+                    case REDSTONE_TORCH_ON:
+                    case REDSTONE_TORCH_OFF:
+                    case ACACIA_DOOR:
+                    case BIRCH_DOOR:
+                    case DARK_OAK_DOOR:
+                    case JUNGLE_DOOR:
+                    case SPRUCE_DOOR:
+                    case WOODEN_DOOR:
+                    case IRON_DOOR_BLOCK:
                         base = null;
                         break;
 

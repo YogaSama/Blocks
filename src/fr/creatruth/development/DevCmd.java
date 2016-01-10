@@ -12,7 +12,7 @@ import fr.creatruth.blocks.BMain;
 import fr.creatruth.blocks.command.handle.ACommand;
 import fr.creatruth.blocks.player.Perm;
 import fr.creatruth.development.floatingtext.FloatingText;
-import fr.creatruth.blocks.manager.utils.DataUtils;
+import fr.creatruth.blocks.utils.DataUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

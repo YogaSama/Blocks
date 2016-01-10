@@ -2,10 +2,6 @@ package fr.creatruth.development.floatingtext;
 
 import static fr.creatruth.development.floatingtext.MetadataType.*;
 
-/**
- * Created by zyuiop on 01/05/15.
- * Part of Epicube project
- */
 public enum MetadataIndex {
 
     STATUS(0, BYTE),

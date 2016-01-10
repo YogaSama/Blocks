@@ -7,9 +7,9 @@
 package fr.creatruth.blocks.listener;
 
 import fr.creatruth.api.event.PickBlockEvent;
-import fr.creatruth.blocks.manager.block.BaseBlock;
+import fr.creatruth.blocks.block.BaseBlock;
 import fr.creatruth.blocks.BMain;
-import fr.creatruth.blocks.manager.utils.BlockUtils;
+import fr.creatruth.blocks.utils.BlockUtils;
 import fr.creatruth.blocks.player.PlayerData;
 
 import fr.creatruth.development.material.MatManager;

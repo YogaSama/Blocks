@@ -10,7 +10,7 @@ import fr.creatruth.blocks.command.handle.ACommand;
 import fr.creatruth.blocks.messages.Message;
 import fr.creatruth.blocks.messages.help.HelpHandler;
 import fr.creatruth.blocks.messages.help.PluginHelp;
-import fr.creatruth.blocks.manager.tools.Meter;
+import fr.creatruth.blocks.tools.Meter;
 import fr.creatruth.blocks.player.Perm;
 import org.bukkit.entity.Player;
 
