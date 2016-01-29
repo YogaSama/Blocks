@@ -2,14 +2,15 @@ package fr.creatruth.blocks.block.type;
 
 import fr.creatruth.api.event.PickBlockEvent;
 import fr.creatruth.blocks.block.BaseBlock;
-import fr.creatruth.development.material.MatData;
+import fr.creatruth.blocks.block.Pickable;
+import fr.creatruth.blocks.block.material.MatData;
 import org.bukkit.Material;
 import org.bukkit.block.Banner;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class BannerBlock extends BaseBlock {
+public class BannerBlock extends BaseBlock implements Pickable {
 
     @Override
     public void onPick(PickBlockEvent event) {

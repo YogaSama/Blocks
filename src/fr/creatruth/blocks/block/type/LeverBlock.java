@@ -10,6 +10,7 @@ import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.blocks.BMain;
 import fr.creatruth.blocks.block.OrientableBlock;
 
+@Deprecated
 public class LeverBlock extends OrientableBlock {
 
     @Override

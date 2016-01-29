@@ -9,9 +9,10 @@ package fr.creatruth.blocks.block.type;
 import fr.creatruth.api.event.PickBlockEvent;
 import fr.creatruth.blocks.block.BaseBlock;
 
+import fr.creatruth.blocks.block.Pickable;
 import org.bukkit.Material;
 
-public class DoubleStepBlock extends BaseBlock {
+public class DoubleStepBlock extends BaseBlock implements Pickable {
 
     @Override
     public void onPick(PickBlockEvent event) {

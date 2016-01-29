@@ -9,10 +9,6 @@ package fr.creatruth.blocks.configuration;
 import fr.creatruth.blocks.BMain;
 import fr.creatruth.blocks.messages.Message;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-
-import java.io.File;
 import java.util.List;
 
 /**
@@ -24,7 +20,12 @@ public class MessageFile extends AConfigFile {
      * Initialise le fichier des messages.
      */
     public MessageFile() {
-        super("messages.yml", true);
+        super("messages.yml", false);
+        this.configurable = true;
+        if (!this.file.exists()) {
+            Config.save(getFileConfiguration(), file);
+            BMain.log("\"" + fileName + "\" create !");
+        }
     }
 
     /**

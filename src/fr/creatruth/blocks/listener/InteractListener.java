@@ -8,20 +8,19 @@ package fr.creatruth.blocks.listener;
 
 import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.api.event.SwitchBlockEvent;
+import fr.creatruth.blocks.block.Placeable;
 import fr.creatruth.blocks.configuration.Config;
 import fr.creatruth.blocks.block.BaseBlock;
-import fr.creatruth.blocks.tools.BiomeTool;
 import fr.creatruth.blocks.tools.ItemPattern;
 import fr.creatruth.blocks.utils.BlockUtils;
 import fr.creatruth.blocks.utils.ItemUtils;
-import fr.creatruth.blocks.tools.Meter;
 import fr.creatruth.blocks.BMain;
 import fr.creatruth.blocks.player.PlayerData;
 import fr.creatruth.blocks.utils.InfoUtils;
-import fr.creatruth.development.material.MatData;
-import fr.creatruth.development.material.MatManager;
-import fr.creatruth.development.material.State;
-import fr.creatruth.development.item.*;
+import fr.creatruth.blocks.block.material.MatData;
+import fr.creatruth.blocks.block.material.MatManager;
+import fr.creatruth.blocks.block.material.State;
+import fr.creatruth.blocks.block.item.*;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -68,35 +67,10 @@ public class InteractListener extends AListener {
         ItemStack item = event.getItem();
 
         pd.setLastBlockFace(event.getBlockFace());
-
-        /*
-         * METER
-         */
-        if (Meter.isMeter(item)) {
-            Meter meter = new Meter(item);
-            meter.updatePos(event);
-        }
-        /*
-         * BIOME TOOL
-         */
-        else if (BiomeTool.isBiomeTool(item)) {
-            BiomeTool tool = new BiomeTool(player, item);
-            if (action == Action.RIGHT_CLICK_BLOCK || action == Action.RIGHT_CLICK_AIR) {
-                tool.onPaint(player, block);
-                event.setCancelled(true);
-            }
-        }
-        /*
-         * SENSIBLE BLOCK CLICK
-         */
-        else if (action          == Action.RIGHT_CLICK_BLOCK &&
-                 block.getType() == Material.PISTON_MOVING_PIECE) {
-                 event.setCancelled(true);
-        }
         /*
          * SNEAK ACTION
          */
-        else if (pd.isSneaking() && player.getGameMode() == GameMode.CREATIVE) {
+        if (pd.isSneaking() && player.getGameMode() == GameMode.CREATIVE) {
 
             if (item != null) {
                 if (    block == null &&
@@ -155,10 +129,10 @@ public class InteractListener extends AListener {
         State state = MatManager.getState(builder.getKey().getMaterial());
         BaseBlock baseBlock = state.getBase();
 
-        if (baseBlock != null) {
+        if (baseBlock instanceof Placeable) {
             BlocksPlaceEvent blocksEvent = new BlocksPlaceEvent(builder, event);
             Bukkit.getPluginManager().callEvent(blocksEvent);
-            if (!blocksEvent.isCancelled()) baseBlock.onPlace(blocksEvent);
+            if (!blocksEvent.isCancelled()) ((Placeable) baseBlock).onPlace(blocksEvent);
         }
     }
 

@@ -14,22 +14,22 @@ import fr.creatruth.blocks.messages.help.HelpHandler;
 import fr.creatruth.blocks.messages.help.PluginHelp;
 import fr.creatruth.blocks.player.Perm;
 
-import fr.creatruth.development.item.ItemBuilder;
+import fr.creatruth.blocks.block.item.ItemBuilder;
 import org.bukkit.entity.Player;
 
 /**
  * /line [size|help|off] [direction] [material|id[:data]]
  */
-public class LineCmd extends ACommand { // TODO Transformr un spécial item en ligne actualise la durabilité de l'item.
+public class LineCmd extends ACommand { // TODO Transformer un spécial item en ligne actualise la durabilité de l'item.
 
     static HelpHandler HELP;
 
     public static void loadHelp() {
         HELP = new HelpHandler("Line");
-        HELP.put("base", new PluginHelp("/Line").setDescription(Message.HELP_LINE_DEFAULT.getMessage()).setPermission(Perm.LINE)); 
-        HELP.put("classic", new PluginHelp("/Line §7[§asize§7] [§adirection§7]").setDescription(Message.HELP_LINE_BASE.getMessage()).setPermission(Perm.LINE));
-        HELP.put("advanced", new PluginHelp("/Line §7[§asize§7] [§adirection§7] [§amaterial§7[§a:data§7]]").setDescription(Message.HELP_LINE_ADVANCED.getMessage()).setPermission(Perm.LINE));
-        HELP.put("off", new PluginHelp("/Line off").setDescription(Message.HELP_LINE_OFF.getMessage()).setPermission(Perm.LINE)); 
+        HELP.put("base", new PluginHelp("/Line").setLore(Message.HELP_LINE_DEFAULT.getMessage()).setPermission(Perm.LINE));
+        HELP.put("classic", new PluginHelp("/Line §7[§asize§7] [§adirection§7]").setLore(Message.HELP_LINE_BASE.getMessage()).setPermission(Perm.LINE));
+        HELP.put("advanced", new PluginHelp("/Line §7[§asize§7] [§adirection§7] [§amaterial§7[§a:data§7]]").setLore(Message.HELP_LINE_ADVANCED.getMessage()).setPermission(Perm.LINE));
+        HELP.put("off", new PluginHelp("/Line off").setLore(Message.HELP_LINE_OFF.getMessage()).setPermission(Perm.LINE));
     }
 
     @Override

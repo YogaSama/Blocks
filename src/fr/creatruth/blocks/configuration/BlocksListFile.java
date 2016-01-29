@@ -9,9 +9,9 @@ package fr.creatruth.blocks.configuration;
 import fr.creatruth.blocks.BMain;
 import fr.creatruth.blocks.utils.MaterialUtils;
 import fr.creatruth.blocks.utils.NumberUtils;
-import fr.creatruth.development.item.ItemBuilder;
-import fr.creatruth.development.item.ItemManager;
-import fr.creatruth.development.material.MatData;
+import fr.creatruth.blocks.block.item.ItemBuilder;
+import fr.creatruth.blocks.block.item.ItemManager;
+import fr.creatruth.blocks.block.material.MatData;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 

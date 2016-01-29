@@ -12,37 +12,34 @@ import fr.creatruth.blocks.configuration.Config;
 import fr.creatruth.blocks.messages.help.Help;
 import fr.creatruth.blocks.player.PlayerData;
 import fr.creatruth.blocks.player.PlayerDataHandler;
-import fr.creatruth.development.item.ItemManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class BMain extends JavaPlugin {
 
-    public static BMain        instance;
+    public static BMain instance;
     public static final String PREFIX = "§5§lBlocks§7 > §r";
 
     private CommandsHandler commandsHandler;
     private PlayerDataHandler playerDataHandler;
 
-    public static PlayerData getData(Player player) {
+    public static PlayerData getData(HumanEntity player) {
         return instance.playerDataHandler.getData(player);
     }
 
-    public static void removePlayerData(Player player) {
+    public static void removePlayerData(HumanEntity player) {
         instance.playerDataHandler.remove(player);
     }
 
     @Override
     public void onEnable() {
-        instance          = this;
-        commandsHandler   = new CommandsHandler();
+        instance = this;
+        commandsHandler = new CommandsHandler();
         playerDataHandler = new PlayerDataHandler();
 
         Config.load();
@@ -52,7 +49,7 @@ public class BMain extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        for (Player  online : Bukkit.getOnlinePlayers()) {
+        for (Player online : Bukkit.getOnlinePlayers()) {
             online.closeInventory();
         }
     }

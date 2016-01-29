@@ -1,4 +1,4 @@
-package fr.creatruth.development.material;
+package fr.creatruth.blocks.block.material;
 
 import fr.creatruth.blocks.block.BaseBlock;
 

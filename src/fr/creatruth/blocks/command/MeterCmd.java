@@ -10,7 +10,7 @@ import fr.creatruth.blocks.command.handle.ACommand;
 import fr.creatruth.blocks.messages.Message;
 import fr.creatruth.blocks.messages.help.HelpHandler;
 import fr.creatruth.blocks.messages.help.PluginHelp;
-import fr.creatruth.blocks.tools.Meter;
+import fr.creatruth.blocks.item.MeterItem;
 import fr.creatruth.blocks.player.Perm;
 import org.bukkit.entity.Player;
 
@@ -20,7 +20,7 @@ public class MeterCmd extends ACommand {
 
     public static void loadHelp() {
         HELP = new HelpHandler("meter");
-        HELP.put("meter", new PluginHelp("/Meter").setDescription(Message.HELP_METER.getMessage()).setPermission(Perm.METER));
+        HELP.put("meter", new PluginHelp("/Meter").setLore(Message.HELP_METER.getMessage()).setPermission(Perm.METER));
     }
 
     @Override
@@ -32,7 +32,7 @@ public class MeterCmd extends ACommand {
                     sender.sendMessage(HELP.constructHelp(sender, 1));
                 }
                 else {
-                    Meter.add(player);
+                    player.getInventory().addItem(MeterItem.getInstance().getItem());
                     Message.COMMAND_METER_RECEIVE.send(player, Message.Type.CLASSIC);
                 }
             }

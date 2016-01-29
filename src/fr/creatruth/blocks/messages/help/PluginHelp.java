@@ -8,17 +8,16 @@ package fr.creatruth.blocks.messages.help;
 
 import fr.creatruth.blocks.player.Perm;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class PluginHelp implements Comparable<PluginHelp> {
 
     private String command;
-    private String description;
+    private String lore;
     private Perm permission;
 
     public PluginHelp(String command) {
         this.command = " " + command;
-        this.description = "§cPas de description.";
+        this.lore = "§cPas de description.";
         this.permission = null;
     }
 
@@ -27,8 +26,8 @@ public class PluginHelp implements Comparable<PluginHelp> {
         return this;
     }
 
-    public PluginHelp setDescription(String description) {
-        this.description = description;
+    public PluginHelp setLore(String description) {
+        this.lore = description;
         return this;
     }
 
@@ -41,8 +40,8 @@ public class PluginHelp implements Comparable<PluginHelp> {
         return command;
     }
 
-    public String getDescription() {
-        return description;
+    public String getLore() {
+        return lore;
     }
 
     public boolean hasPermission(CommandSender sender) {
@@ -56,6 +55,6 @@ public class PluginHelp implements Comparable<PluginHelp> {
 
     @Override
     public String toString() {
-        return "\n§a" + command + "\n§f" + description;
+        return "\n§a" + command + "\n§f" + lore;
     }
 }

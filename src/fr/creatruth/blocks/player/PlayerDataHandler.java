@@ -6,7 +6,7 @@
  */
 package fr.creatruth.blocks.player;
 
-import org.bukkit.entity.Player;
+import org.bukkit.entity.HumanEntity;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -14,30 +14,19 @@ import java.util.UUID;
 public class PlayerDataHandler {
 
     private HashMap<UUID, PlayerData> playerDataMap;
-    private HashMap<String, PlayerData> playerDataOfflineMap;
 
     public PlayerDataHandler() {
         playerDataMap = new HashMap<>();
-        playerDataOfflineMap = new HashMap<>();
     }
 
-    public PlayerData getData(Player player) {
-        if (player.getUniqueId() != null) {
-            if (!playerDataMap.containsKey(player.getUniqueId())) {
-                playerDataMap.put(player.getUniqueId(), new PlayerData(player.getUniqueId()));
-            }
-            return playerDataMap.get(player.getUniqueId());
+    public PlayerData getData(HumanEntity player) {
+        if (!playerDataMap.containsKey(player.getUniqueId())) {
+            playerDataMap.put(player.getUniqueId(), new PlayerData(player.getUniqueId()));
         }
-        else {
-            if (!playerDataOfflineMap.containsKey(player.getName())) {
-                playerDataOfflineMap.put(player.getName(), new PlayerData(null));
-            }
-            return playerDataOfflineMap.get(player.getName());
-        }
+        return playerDataMap.get(player.getUniqueId());
     }
 
-    public void remove(Player player) {
+    public void remove(HumanEntity player) {
         playerDataMap.remove(player.getUniqueId());
-        playerDataOfflineMap.remove(player.getName());
     }
 }

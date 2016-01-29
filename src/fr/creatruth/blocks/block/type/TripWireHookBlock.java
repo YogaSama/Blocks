@@ -9,14 +9,14 @@ package fr.creatruth.blocks.block.type;
 import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.blocks.BMain;
 import fr.creatruth.blocks.block.OrientableBlock;
+import fr.creatruth.blocks.block.Placeable;
 import org.bukkit.Material;
 
-public class TripWireHookBlock extends OrientableBlock {
+@Deprecated
+public class TripWireHookBlock extends OrientableBlock implements Placeable {
 
     @Override
     public void onPlace(BlocksPlaceEvent event) {
-        super.onPlace(event);
-
         if (event.getMaterial() != Material.TRIPWIRE_HOOK) {
 
             event.getBlock().setType(event.getMaterial());

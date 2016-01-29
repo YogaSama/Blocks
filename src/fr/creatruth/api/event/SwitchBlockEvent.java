@@ -1,6 +1,6 @@
 package fr.creatruth.api.event;
 
-import fr.creatruth.development.item.ItemList;
+import fr.creatruth.blocks.block.item.ItemList;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;

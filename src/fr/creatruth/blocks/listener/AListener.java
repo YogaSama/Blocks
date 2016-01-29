@@ -8,7 +8,6 @@ package fr.creatruth.blocks.listener;
 
 import static fr.creatruth.blocks.BMain.instance;
 
-import fr.creatruth.blocks.inventory.gui.GUIListener;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 
@@ -28,6 +27,5 @@ public abstract class AListener implements Listener {
         new DropListener();
         new SneakListener();
         new InventoryCreativeListener();
-        new GUIListener();
     }
 }

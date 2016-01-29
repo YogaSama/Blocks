@@ -6,7 +6,7 @@
  */
 package fr.creatruth.blocks.utils;
 
-import fr.creatruth.development.material.MatData;
+import fr.creatruth.blocks.block.material.MatData;
 import org.bukkit.Material;
 
 public class MaterialUtils {

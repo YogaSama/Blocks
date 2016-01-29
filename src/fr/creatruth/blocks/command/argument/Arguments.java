@@ -8,7 +8,7 @@ package fr.creatruth.blocks.command.argument;
 
 import fr.creatruth.blocks.utils.MaterialUtils;
 import fr.creatruth.blocks.utils.NumberUtils;
-import fr.creatruth.development.material.MatData;
+import fr.creatruth.blocks.block.material.MatData;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;

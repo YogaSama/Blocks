@@ -8,7 +8,7 @@ package fr.creatruth.blocks.block;
 
 import org.bukkit.entity.Player;
 
-public class OrientableBlock extends BaseBlock {
+abstract public class OrientableBlock extends BaseBlock implements Placeable {
 
     public byte getOrientation(Player player) {
         return getOrientation(player, 0);

@@ -7,8 +7,6 @@
 package fr.creatruth.blocks.configuration;
 
 import fr.creatruth.blocks.BMain;
-import fr.creatruth.blocks.tools.BiomeTool;
-import fr.creatruth.blocks.tools.Meter;
 import fr.creatruth.blocks.utils.MaterialUtils;
 import fr.creatruth.blocks.player.PlayerData;
 import org.bukkit.Material;
@@ -62,9 +60,6 @@ public class Config {
         BMain.instance.reloadConfig();
 
         fileConfig = BMain.instance.getConfig();
-
-        Meter.MATERIAL     = Config.getMeterWand();
-        BiomeTool.MATERIAL = Config.getBiomeWand();
 
         new ListFile().loadContent();
         new BlocksListFile().loadContent();

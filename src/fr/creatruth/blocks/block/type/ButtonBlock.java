@@ -9,8 +9,10 @@ package fr.creatruth.blocks.block.type;
 import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.blocks.block.BaseBlock;
 import fr.creatruth.blocks.BMain;
+import fr.creatruth.blocks.block.Placeable;
 
-public class ButtonBlock extends BaseBlock {
+@Deprecated
+public class ButtonBlock extends BaseBlock implements Placeable {
 
     @Override
     public void onPlace(BlocksPlaceEvent event) {

@@ -8,6 +8,7 @@ package fr.creatruth.blocks.block.type;
 
 import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.blocks.block.OrientableBlock;
+import fr.creatruth.blocks.block.Placeable;
 
 public class BedBlock extends OrientableBlock {
 

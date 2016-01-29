@@ -1,6 +1,6 @@
 package fr.creatruth.blocks.configuration;
 
-import fr.creatruth.development.item.ItemManager;
+import fr.creatruth.blocks.block.item.ItemManager;
 
 public class ListFile extends AConfigFile {
 

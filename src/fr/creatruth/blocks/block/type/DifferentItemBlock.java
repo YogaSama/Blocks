@@ -9,9 +9,11 @@ package fr.creatruth.blocks.block.type;
 import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.api.event.PickBlockEvent;
 import fr.creatruth.blocks.block.BaseBlock;
+import fr.creatruth.blocks.block.Pickable;
+import fr.creatruth.blocks.block.Placeable;
 import org.bukkit.Material;
 
-public class DifferentItemBlock extends BaseBlock {
+public class DifferentItemBlock extends BaseBlock implements Placeable, Pickable {
 
     protected Material item;
     protected Material block;

@@ -9,12 +9,11 @@ package fr.creatruth.blocks.block;
 import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.blocks.BMain;
 
+@Deprecated
 public class DefaultOrientableBlock extends OrientableBlock {
 
     @Override
     public void onPlace(BlocksPlaceEvent event) {
-        super.onPlace(event);
-
         byte value;
 
         switch (BMain.getData(event.getPlayer()).getLastBlockFace()) {

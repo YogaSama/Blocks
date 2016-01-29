@@ -11,7 +11,8 @@ import fr.creatruth.blocks.utils.WorldUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 
-public class RedstoneBlock extends OrientableBlock {
+@Deprecated
+abstract public class RedstoneBlock extends OrientableBlock implements Pickable {
 
     /* -------------- */
     /* PICK           */

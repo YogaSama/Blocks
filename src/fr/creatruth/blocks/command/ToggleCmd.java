@@ -21,13 +21,13 @@ public class ToggleCmd extends ACommand {
 
     public static void loadHelp() {
         HELP = new HelpHandler("Toggle");
-        HELP.put("list", new PluginHelp("/Toggle list").setDescription(Message.HELP_TOGGLE_LIST.getMessage()));
-        HELP.put("list.other", new PluginHelp("/Toggle list §7[§aplayer§7]").setDescription(Message.HELP_TOGGLE_OTHER.getMessage()).setPermission(Perm.TOGGLE_LIST_OTHER));
-        HELP.put("info", new PluginHelp("/Toggle info §7[§aplayer§7]").setDescription(Message.HELP_TOGGLE_INFO.getMessage()));
-        HELP.put("change", new PluginHelp("/Toggle change §7[§aplayer§7]").setDescription(Message.HELP_TOGGLE_CHANGE.getMessage()));
-        HELP.put("middleclick", new PluginHelp("/Toggle middle §7[§aplayer§7]").setDescription(Message.HELP_TOGGLE_MIDDLE.getMessage()));
-        HELP.put("block", new PluginHelp("/Toggle block §7[§aplayer§7]").setDescription(Message.HELP_TOGGLE_BLOCK.getMessage()));
-        HELP.put("all", new PluginHelp("/Toggle all §7<§aon§7|§aoff§7> §7[§aplayer§7]").setDescription(Message.HELP_TOGGLE_ALL.getMessage()));
+        HELP.put("list", new PluginHelp("/Toggle list").setLore(Message.HELP_TOGGLE_LIST.getMessage()));
+        HELP.put("list.other", new PluginHelp("/Toggle list §7[§aplayer§7]").setLore(Message.HELP_TOGGLE_OTHER.getMessage()).setPermission(Perm.TOGGLE_LIST_OTHER));
+        HELP.put("info", new PluginHelp("/Toggle info §7[§aplayer§7]").setLore(Message.HELP_TOGGLE_INFO.getMessage()));
+        HELP.put("change", new PluginHelp("/Toggle change §7[§aplayer§7]").setLore(Message.HELP_TOGGLE_CHANGE.getMessage()));
+        HELP.put("middleclick", new PluginHelp("/Toggle middle §7[§aplayer§7]").setLore(Message.HELP_TOGGLE_MIDDLE.getMessage()));
+        HELP.put("block", new PluginHelp("/Toggle block §7[§aplayer§7]").setLore(Message.HELP_TOGGLE_BLOCK.getMessage()));
+        HELP.put("all", new PluginHelp("/Toggle all §7<§aon§7|§aoff§7> §7[§aplayer§7]").setLore(Message.HELP_TOGGLE_ALL.getMessage()));
     }
 
     @Override
@@ -123,7 +123,7 @@ public class ToggleCmd extends ACommand {
     }
 
     private void setToggle(Player player, PlayerData playerData, PlayerData.Toggle toggle, boolean on) {
-        playerData.setToggle(player, toggle, on);
+        playerData.setToggle(toggle, on);
         player.sendMessage(toggle.getInfo(playerData));
     }
 

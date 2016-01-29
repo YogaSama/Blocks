@@ -9,6 +9,7 @@ package fr.creatruth.blocks.block;
 import fr.creatruth.api.event.BlocksPlaceEvent;
 import org.bukkit.Material;
 
+@Deprecated
 public class DefaultRedstoneBlock extends RedstoneBlock {
 
     @Override

@@ -6,7 +6,6 @@
  */
 package fr.creatruth.blocks.listener;
 
-import fr.creatruth.blocks.tools.Meter;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -20,10 +19,10 @@ public class MoveListener extends AListener {
         if (hasMoved(event.getFrom(), event.getTo())) {
             ItemStack item = event.getPlayer().getItemInHand();
 
-            if (Meter.isMeter(item)) {
-                Meter meter = new Meter(item);
+            /*if (MeterItem.isMeter(item)) {
+                MeterItem meter = new MeterItem(item);
                 meter.updateMeter(event.getTo().toVector());
-            }
+            }*/ // FIXME
         }
     }
 

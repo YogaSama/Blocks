@@ -3,13 +3,15 @@ package fr.creatruth.blocks.block.type;
 import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.api.event.PickBlockEvent;
 import fr.creatruth.blocks.block.BaseBlock;
-import fr.creatruth.development.material.MatData;
+import fr.creatruth.blocks.block.Pickable;
+import fr.creatruth.blocks.block.Placeable;
+import fr.creatruth.blocks.block.material.MatData;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.material.Bed;
 
-public class BedItemBlock extends BaseBlock {
+public class BedItemBlock extends BaseBlock implements Placeable, Pickable {
 
     @Override
     public void onPlace(BlocksPlaceEvent event) {

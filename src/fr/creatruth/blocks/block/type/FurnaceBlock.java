@@ -9,10 +9,12 @@ package fr.creatruth.blocks.block.type;
 import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.api.event.PickBlockEvent;
 import fr.creatruth.blocks.block.BaseBlock;
+import fr.creatruth.blocks.block.Pickable;
+import fr.creatruth.blocks.block.Placeable;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 
-public class FurnaceBlock extends BaseBlock {
+public class FurnaceBlock extends BaseBlock implements Placeable, Pickable {
 
     @Override
     public void onPlace(BlocksPlaceEvent event) {

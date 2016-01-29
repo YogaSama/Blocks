@@ -8,7 +8,7 @@ package fr.creatruth.blocks.command;
 
 import fr.creatruth.blocks.command.handle.ACommand;
 import fr.creatruth.blocks.configuration.Config;
-import fr.creatruth.blocks.tools.BiomeTool;
+import fr.creatruth.blocks.item.BiomeItem;
 import fr.creatruth.blocks.utils.BiomeUtils;
 import fr.creatruth.blocks.messages.Message;
 import fr.creatruth.blocks.messages.help.HelpHandler;
@@ -30,10 +30,10 @@ public class BiomeCmd extends ACommand {
 
     public static void loadHelp() {
         HELP = new HelpHandler("biome");
-        HELP.put("tool", new PluginHelp("/Biome wand §7[§abiome§7[§a,biome§7[§a,...§7]]] [§aradius§7]").setDescription(Message.HELP_BIOME_WAND.getMessage()).setPermission(Perm.BIOME));
-        HELP.put("list", new PluginHelp("/Biome list").setDescription(Message.HELP_BIOME_LIST.getMessage()).setPermission(Perm.BIOME));
-        HELP.put("biome", new PluginHelp("/Biome §7<§abiome§7[§a,biome§7[§a,...§7]]>").setDescription(Message.HELP_BIOME_SETBIOME.getMessage()).setPermission(Perm.BIOME));
-        HELP.put("radius", new PluginHelp("/Biome §7<§aradius§7>").setDescription(Message.HELP_BIOME_SETRADIUS.getMessage()).setPermission(Perm.BIOME));
+        HELP.put("tool", new PluginHelp("/Biome wand §7[§abiome§7[§a,biome§7[§a,...§7]]] [§aradius§7]").setLore(Message.HELP_BIOME_WAND.getMessage()).setPermission(Perm.BIOME));
+        HELP.put("list", new PluginHelp("/Biome list").setLore(Message.HELP_BIOME_LIST.getMessage()).setPermission(Perm.BIOME));
+        HELP.put("biome", new PluginHelp("/Biome §7<§abiome§7[§a,biome§7[§a,...§7]]>").setLore(Message.HELP_BIOME_SETBIOME.getMessage()).setPermission(Perm.BIOME));
+        HELP.put("radius", new PluginHelp("/Biome §7<§aradius§7>").setLore(Message.HELP_BIOME_SETRADIUS.getMessage()).setPermission(Perm.BIOME));
     }
 
     @Override
@@ -55,7 +55,7 @@ public class BiomeCmd extends ACommand {
                     boolean byPass = Perm.BIOME_LIMIT.has(player);
                     radius = radius < 0 ?  0 : (radius > max ? (byPass ? (radius > 100 ? 100 : radius) : max) : radius);
 
-                    BiomeTool.add(player, biomes, radius);
+                    player.getInventory().addItem(BiomeItem.getInstance(biomes, radius).getItem());
                     if (radius > 20) {
                         Message.COMMAND_BIOME_LARGERADIUS.sendAlert(player);
                     }
@@ -69,16 +69,16 @@ public class BiomeCmd extends ACommand {
                     Message.COMMAND_BIOME_LIST.send(player, Message.Type.CLASSIC, getBiomeNames());
                     return;
                 }
-                /*
+                /* // FIXME
                  * TOOL IN HAND
                  */
                 ItemStack hand = player.getItemInHand();
 
-                if (BiomeTool.isBiomeTool(hand)) {
-                    BiomeTool tool = new BiomeTool(player, hand);
+                /*if (BiomeItem.isBiomeTool(hand)) {
+                    BiomeItem tool = new BiomeItem(player, hand);
                     /*
                      * RADIUS
-                     */
+                     *
                     int radius = args.getInt(0, -1);
                     if (radius >= 0) {
                         int max = Config.getBiomeMaxRadius();
@@ -93,7 +93,7 @@ public class BiomeCmd extends ACommand {
                     }
                     /*
                      * BIOME
-                     */
+                     *
                     else {
                         List<Biome> biomes = BiomeUtils.getList(args.get(0, ""));
                         if (biomes.size() > 0) {
@@ -102,7 +102,7 @@ public class BiomeCmd extends ACommand {
                             return;
                         }
                     }
-                }
+                }*/
 
                 /*
                  * HELP

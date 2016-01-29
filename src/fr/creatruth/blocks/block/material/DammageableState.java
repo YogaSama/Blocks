@@ -1,4 +1,4 @@
-package fr.creatruth.development.material;
+package fr.creatruth.blocks.block.material;
 
 public class DammageableState extends State {
 

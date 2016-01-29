@@ -8,6 +8,7 @@ package fr.creatruth.blocks.messages;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.text.MessageFormat;
 import java.util.Arrays;
@@ -157,6 +158,11 @@ public enum Message {
 
     public void sendRaw(CommandSender sender, Object... args) {
         send(sender, Type.RAW, args);
+    }
+
+    public static void sendRaw(CommandSender sender, String message) {
+        if (!(sender instanceof Player) || ((Player) sender).isOnline())
+        sender.sendMessage(message);
     }
 
     public String getMessage(Message name, Type type) {

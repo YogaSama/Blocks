@@ -9,6 +9,8 @@ package fr.creatruth.blocks.player;
 import fr.creatruth.blocks.configuration.Config;
 import fr.creatruth.blocks.configuration.PlayerDataFolder;
 import fr.creatruth.blocks.messages.Message;
+import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 
@@ -21,18 +23,24 @@ import java.util.UUID;
 
 public class PlayerData {
 
+    private UUID uid;
     private Map<Toggle, Boolean>    toggles;
     private boolean                 sneak;
     private BlockFace               lastBlockFace;
 
-    public PlayerData(UUID uuid) {
+    public PlayerData(UUID uid) {
+        this.uid     = uid;
         this.toggles = new HashMap<>();
 
         PlayerDataFolder pdf = Config.playerDataFolder;
-        File file = pdf.getFile(uuid);
+        File file = pdf.getFile(uid);
 
         for (Toggle toggle : Toggle.values())
             this.toggles.put(toggle, pdf.getValue(file, toggle, Config.isToggle(toggle)));
+    }
+
+    public Player getPlayer() {
+        return Bukkit.getPlayer(uid);
     }
 
     public boolean has(Toggle toggle) {
@@ -47,9 +55,14 @@ public class PlayerData {
         return lastBlockFace;
     }
 
-    public void setToggle(Player player, Toggle toggle, boolean value) {
+    public void playSound(Sound sound, float volume) {
+        Player player = getPlayer();
+        player.playSound(player.getLocation(), sound, volume, 1F);
+    }
+
+    public void setToggle(Toggle toggle, boolean value) {
         toggles.put(toggle, value);
-        Config.playerDataFolder.updatePlayer(player.getUniqueId(), toggle, value);
+        Config.playerDataFolder.updatePlayer(uid, toggle, value);
     }
 
     public void setSneak(boolean sneak) {

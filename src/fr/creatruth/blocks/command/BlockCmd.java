@@ -8,15 +8,16 @@ package fr.creatruth.blocks.command;
 
 import fr.creatruth.blocks.command.handle.ACommand;
 import fr.creatruth.blocks.configuration.BlocksListFile;
-import fr.creatruth.blocks.inventory.gui.GUIManager;
-import fr.creatruth.blocks.inventory.page.PagedInventory;
 import fr.creatruth.blocks.messages.Message;
 import fr.creatruth.blocks.messages.help.HelpHandler;
 import fr.creatruth.blocks.messages.help.PluginHelp;
 import fr.creatruth.blocks.player.Perm;
-import fr.creatruth.development.item.ItemBuilder;
-import fr.creatruth.development.item.ItemManager;
-import fr.creatruth.development.material.MatData;
+import fr.creatruth.blocks.block.item.ItemBuilder;
+import fr.creatruth.blocks.block.item.ItemManager;
+import fr.creatruth.blocks.block.material.MatData;
+import fr.creatruth.globalapi.ItemAPI;
+import fr.creatruth.globalapi.inventory.InventoryCreator;
+import fr.creatruth.globalapi.inventory.PagedInventory;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -30,10 +31,10 @@ public class BlockCmd extends ACommand {
 
     public static void loadHelp() {
         HELP = new HelpHandler("block");
-        HELP.put("classic", new PluginHelp("/Block §7<§amaterial§7[§a:data§7]>").setDescription(Message.HELP_BLOCK_BASE.getMessage()).setPermission(Perm.BLOCK));
-        HELP.put("list", new PluginHelp("/Block list").setDescription(Message.HELP_BLOCK_LIST.getMessage()).setPermission(Perm.BLOCK));
-        HELP.put("other", new PluginHelp("/Block §7<§amaterial§7[§a:data§7]> [§aplayer§7]").setDescription(Message.HELP_BLOCK_OTHER.getMessage()).setPermission(Perm.BLOCK_OTHER));
-        HELP.put("special", new PluginHelp("/Block special").setDescription(Message.HELP_BLOCK_SPECIAL.getMessage()).setPermission(Perm.BLOCK));
+        HELP.put("classic", new PluginHelp("/Block §7<§amaterial§7[§a:data§7]>").setLore(Message.HELP_BLOCK_BASE.getMessage()).setPermission(Perm.BLOCK));
+        HELP.put("list", new PluginHelp("/Block list").setLore(Message.HELP_BLOCK_LIST.getMessage()).setPermission(Perm.BLOCK));
+        HELP.put("other", new PluginHelp("/Block §7<§amaterial§7[§a:data§7]> [§aplayer§7]").setLore(Message.HELP_BLOCK_OTHER.getMessage()).setPermission(Perm.BLOCK_OTHER));
+        HELP.put("special", new PluginHelp("/Block special").setLore(Message.HELP_BLOCK_SPECIAL.getMessage()).setPermission(Perm.BLOCK));
     }
 
     @Override
@@ -66,12 +67,13 @@ public class BlockCmd extends ACommand {
                  * LIST
                  */
                 else if (args.get(0).equalsIgnoreCase("list") || args.get(0).equalsIgnoreCase("l")) {
-                    int maxPage = (int) Math.ceil(((double) BlocksListFile.maxSlot + 1) / (5 * 9));
-                    PagedInventory pi = GUIManager.getInstance().set(player, "§4§l> §7Blocks", 6, maxPage);
+                    InventoryCreator ic  = new InventoryCreator(6, "§4§l> §7Blocks");
+                    PagedInventory pi = new PagedInventory(ic, PagedInventory.calculatePages(BlocksListFile.maxSlot + 1, ic.getRows()));
                     pi.setItems(BlocksListFile.getContent());
+                    ItemAPI.getHistory(player.getUniqueId()).add(pi);
                 }
                 /*
-                 * MATERIAL
+                 * GIVE
                  */
                 else {
                     Player target = player;

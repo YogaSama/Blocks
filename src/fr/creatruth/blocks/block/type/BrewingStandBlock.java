@@ -9,10 +9,12 @@ package fr.creatruth.blocks.block.type;
 import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.api.event.PickBlockEvent;
 import fr.creatruth.blocks.block.BaseBlock;
-import fr.creatruth.development.material.MatData;
+import fr.creatruth.blocks.block.Pickable;
+import fr.creatruth.blocks.block.Placeable;
+import fr.creatruth.blocks.block.material.MatData;
 import org.bukkit.Material;
 
-public class BrewingStandBlock extends BaseBlock {
+public class BrewingStandBlock extends BaseBlock implements Placeable, Pickable {
 
     @Override
     public void onPlace(BlocksPlaceEvent event) {

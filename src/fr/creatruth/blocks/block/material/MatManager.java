@@ -1,4 +1,4 @@
-package fr.creatruth.development.material;
+package fr.creatruth.blocks.block.material;
 
 import fr.creatruth.blocks.block.BaseBlock;
 import fr.creatruth.blocks.block.TypeAndDataBlock;
@@ -59,7 +59,7 @@ public class MatManager {
                         break;
 
                     case DIRT:
-                        base = new SoilBlock();
+                        base = new DifferentItemBlock(mat, SOIL, false);
                         break;
 
                     case PISTON_BASE:
@@ -72,7 +72,7 @@ public class MatManager {
                         break;
 
                     case CAKE:
-                        base = new CakeBlock();
+                        base = new DifferentItemBlock(mat, CAKE_BLOCK);
                         break;
 
                     case INK_SACK:
@@ -189,6 +189,13 @@ public class MatManager {
                     case SPRUCE_DOOR:
                     case WOODEN_DOOR:
                     case IRON_DOOR_BLOCK:
+                    case VINE:
+                    case LEVER:
+                    case WOOD_BUTTON:
+                    case STONE_BUTTON:
+                    case TRIPWIRE_HOOK:
+                    case TRAP_DOOR:
+                    case IRON_TRAPDOOR:
                         base = null;
                         break;
 

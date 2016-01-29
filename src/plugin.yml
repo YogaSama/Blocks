@@ -2,6 +2,7 @@ name: Blocks
 version: 2.0.0
 author: Yoga_Sama
 website: http://dev.bukkit.org/bukkit-plugins/creatruthblocks/
+softdepend: [CreaTruthGlobalAPI]
 main: fr.creatruth.blocks.BMain
 description: >
              Blocks management, biome tools, build tools, and creative mecanics add-ons.

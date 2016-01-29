@@ -11,6 +11,7 @@ import fr.creatruth.blocks.BMain;
 import fr.creatruth.blocks.block.RedstoneBlock;
 import org.bukkit.Material;
 
+@Deprecated
 public class RedstoneTorchBlock extends RedstoneBlock {
 
     public RedstoneTorchBlock() {

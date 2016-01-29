@@ -11,12 +11,11 @@ import fr.creatruth.blocks.BMain;
 import fr.creatruth.blocks.block.OrientableBlock;
 import org.bukkit.Material;
 
+@Deprecated
 public class TorchBlock extends OrientableBlock {
 
     @Override
     public void onPlace(BlocksPlaceEvent event) {
-        super.onPlace(event);
-
         if (event.getMaterial() != Material.TORCH) {
 
             event.getBlock().setType(event.getMaterial());

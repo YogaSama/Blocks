@@ -11,9 +11,9 @@ import fr.creatruth.blocks.block.type.PaintingBlock;
 
 import fr.creatruth.blocks.tools.ItemPattern;
 import fr.creatruth.blocks.utils.ItemUtils;
-import fr.creatruth.development.item.ItemManager;
-import fr.creatruth.development.material.MatData;
-import fr.creatruth.development.material.MatManager;
+import fr.creatruth.blocks.block.item.ItemManager;
+import fr.creatruth.blocks.block.material.MatData;
+import fr.creatruth.blocks.block.material.MatManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

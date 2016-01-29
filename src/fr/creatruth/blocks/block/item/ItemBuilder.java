@@ -1,9 +1,9 @@
-package fr.creatruth.development.item;
+package fr.creatruth.blocks.block.item;
 
 import fr.creatruth.blocks.tools.ItemPattern;
 import fr.creatruth.blocks.utils.ItemUtils;
 import fr.creatruth.blocks.utils.MaterialUtils;
-import fr.creatruth.development.material.MatData;
+import fr.creatruth.blocks.block.material.MatData;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.regex.Matcher;

@@ -1,4 +1,4 @@
-package fr.creatruth.development.item;
+package fr.creatruth.blocks.block.item;
 
 import fr.creatruth.blocks.utils.ItemUtils;
 import fr.creatruth.blocks.utils.NumberUtils;
@@ -18,15 +18,27 @@ public class ItemEncoder {
      *
      * @param item   Item à encoder.
      * @param itemID Id à cacher dans le nom.
+     * @return       Le nouveau nom encodé.
      */
-    public static void encodeInName(ItemStack item, int itemID) {
-        String name = ItemUtils.getDisplayName(item);
+    public static String encodeInName(ItemStack item, int itemID) {
+        return encodeInName(item, itemID, ItemUtils.getDisplayName(item));
+    }
+
+    /**
+     *
+     * @param item
+     * @param itemID
+     * @param name
+     * @return
+     */
+    public static String encodeInName(ItemStack item, int itemID, String name) {
         if (hasCodeInName(name)) name = extractName(name);
 
         String id   = Integer.toString(itemID);
         String code = "";
         for (int i = 0; i < id.length(); i++) code += "§" + id.charAt(i);
         ItemUtils.setName(item, code + SPLITTER + name);
+        return code + SPLITTER + name;
     }
 
     /**
@@ -57,7 +69,7 @@ public class ItemEncoder {
      * @return vrai si l'item est déjà encodé.
      */
     public static boolean hasCodeInName(String name) {
-        return name.contains(SPLITTER) && name.split(SPLITTER).length > 0;
+        return name.contains(SPLITTER);
     }
 
     /**
@@ -68,7 +80,7 @@ public class ItemEncoder {
      *
      * @param name Nom encodé.
      * @return     Nom non codé.
-     * @throws ArrayIndexOutOfBoundsException
+     * @throws     ArrayIndexOutOfBoundsException
      */
     public static String extractName(String name) {
         return name.split(SPLITTER)[1];

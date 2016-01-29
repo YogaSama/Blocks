@@ -10,10 +10,11 @@ import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.api.event.PickBlockEvent;
 import fr.creatruth.blocks.block.RedstoneBlock;
 
-import fr.creatruth.blocks.runnable.TaskManager;
+import fr.creatruth.globalapi.task.TaskManager;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 
+// FIXME Ne fonctionne pas.
 public class RedstoneLampBlock extends RedstoneBlock {
 
     @Override

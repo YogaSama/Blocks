@@ -1,8 +1,8 @@
-package fr.creatruth.development.item;
+package fr.creatruth.blocks.block.item;
 
 import fr.creatruth.blocks.tools.ItemPattern;
 import fr.creatruth.blocks.utils.ItemUtils;
-import fr.creatruth.development.material.MatData;
+import fr.creatruth.blocks.block.material.MatData;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
@@ -11,7 +11,7 @@ import java.util.*;
 
 public class ItemManager {
 
-    private static ItemManager     instance = new ItemManager();
+    private static ItemManager instance = new ItemManager();
     private Map<Integer, Map<Short, ItemList>> newMap;
 
     public ItemManager() {

@@ -10,7 +10,7 @@ import fr.creatruth.blocks.utils.BiomeUtils;
 import fr.creatruth.blocks.utils.ItemUtils;
 import fr.creatruth.blocks.utils.MaterialUtils;
 import fr.creatruth.blocks.utils.NumberUtils;
-import fr.creatruth.development.material.MatData;
+import fr.creatruth.blocks.block.material.MatData;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.inventory.ItemStack;

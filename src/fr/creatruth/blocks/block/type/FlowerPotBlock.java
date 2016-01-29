@@ -8,17 +8,18 @@ package fr.creatruth.blocks.block.type;
 
 import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.blocks.block.BaseBlock;
-import fr.creatruth.development.reflection.PackAPI;
-import fr.creatruth.development.reflection.ClassAccess;
-import fr.creatruth.development.reflection.ConstructorBuilder;
+import fr.creatruth.blocks.block.Placeable;
 
+import fr.creatruth.globalapi.reflection.ClassAccess;
+import fr.creatruth.globalapi.reflection.ConstructorBuilder;
+import fr.creatruth.globalapi.reflection.PackAPI;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 
 import java.lang.reflect.Method;
 
-public class FlowerPotBlock extends BaseBlock {
+public class FlowerPotBlock extends BaseBlock implements Placeable {
 
     @Override
     public void onPlace(BlocksPlaceEvent event) {
@@ -57,16 +58,16 @@ public class FlowerPotBlock extends BaseBlock {
 
             // WorldServer
             Object craftWorld            = cCraftWorld.getClazz().cast(block.getWorld());
-            Object nms_World             = cCraftWorld.getDeclaredMethod("getHandle").invoke(craftWorld);
+            Object nms_World             = cCraftWorld.getMethod("getHandle").invoke(craftWorld);
 
             // TimeEntityFlowerPot
-            Method getTileEntity         = cWorld.getDeclaredMethod("getTileEntity", cPosition.getClazz()).getMethod();
+            Method getTileEntity         = cWorld.getMethod("getTileEntity", cPosition.getClazz()).getMethod();
             Object pot                   = cPot.getClazz().cast(cWorld.invoke(nms_World, getTileEntity, position));
 
             // ItemStack NMS
             Object nms_ItemStack         = cCraftItem.getMethod("asNMSCopy", ItemStack.class).invoke(null, item);
-            Object nms_Item              = cItemStack.getDeclaredMethod("getItem").invoke(nms_ItemStack);
-            Object nms_Data              = cItemStack.getDeclaredMethod("getData").invoke(nms_ItemStack);
+            Object nms_Item              = cItemStack.getMethod("getItem").invoke(nms_ItemStack);
+            Object nms_Data              = cItemStack.getMethod("getData").invoke(nms_ItemStack);
 
             // Application des caractéristique de l'item au bloc.
             cPot.getMethod("a", cItem.getClazz(), int.class).invoke(pot, nms_Item, nms_Data);

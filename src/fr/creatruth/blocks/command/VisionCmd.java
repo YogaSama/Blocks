@@ -25,8 +25,8 @@ public class VisionCmd extends ACommand {
 
     public static void loadHelp() {
         HELP = new HelpHandler("vision");
-        HELP.put("aqua", new PluginHelp("/vision aqua").setDescription(Message.HELP_VISION_AQUA.getMessage()).setPermission(Perm.VISION_AQUA));
-        HELP.put("night", new PluginHelp("/vision night").setDescription(Message.HELP_VISION_NIGHT.getMessage()).setPermission(Perm.VISION_NIGHT));
+        HELP.put("aqua", new PluginHelp("/vision aqua").setLore(Message.HELP_VISION_AQUA.getMessage()).setPermission(Perm.VISION_AQUA));
+        HELP.put("night", new PluginHelp("/vision night").setLore(Message.HELP_VISION_NIGHT.getMessage()).setPermission(Perm.VISION_NIGHT));
     }
 
     @Override

@@ -20,9 +20,10 @@ public class HeadCmd extends ACommand {
     static HelpHandler HELP;
 
     public static void loadHelp() {
+
         HELP = new HelpHandler("head");
-        HELP.put("own", new PluginHelp("/Head").setDescription(Message.HELP_HEAD_OWN.getMessage()).setPermission(Perm.HEAD));
-        HELP.put("other", new PluginHelp("/Head §7[§aplayer§7]").setDescription(Message.HELP_HEAD_OTHER.getMessage()).setPermission(Perm.HEAD));
+        HELP.put("own", new PluginHelp("/Head").setLore(Message.HELP_HEAD_OWN.getMessage()).setPermission(Perm.HEAD));
+        HELP.put("other", new PluginHelp("/Head §7[§aplayer§7]").setLore(Message.HELP_HEAD_OTHER.getMessage()).setPermission(Perm.HEAD));
     }
 
     @Override

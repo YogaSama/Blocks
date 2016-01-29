@@ -1,7 +1,7 @@
 package fr.creatruth.blocks.utils;
 
-import fr.creatruth.development.reflection.PackAPI;
-import fr.creatruth.development.reflection.ClassAccess;
+import fr.creatruth.globalapi.reflection.ClassAccess;
+import fr.creatruth.globalapi.reflection.PackAPI;
 import org.bukkit.Material;
 
 public class DataUtils {

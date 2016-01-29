@@ -24,6 +24,7 @@ blacklisted-worlds:
 
 #No physic list for all worlds (exclude worlds blacklisted)
 global:
+- '*'
 #- ACTIVATOR_RAIL
 #- ANVIL
 #- BED_BLOCK

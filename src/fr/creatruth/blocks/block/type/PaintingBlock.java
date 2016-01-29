@@ -8,8 +8,9 @@ package fr.creatruth.blocks.block.type;
 
 import fr.creatruth.api.event.PickBlockEvent;
 import fr.creatruth.blocks.block.BaseBlock;
-import fr.creatruth.development.item.ItemBuilder;
-import fr.creatruth.development.material.MatData;
+import fr.creatruth.blocks.block.Pickable;
+import fr.creatruth.blocks.block.item.ItemBuilder;
+import fr.creatruth.blocks.block.material.MatData;
 import org.bukkit.Art;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -22,7 +23,7 @@ import org.bukkit.util.Vector;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PaintingBlock extends BaseBlock {
+public class PaintingBlock extends BaseBlock implements Pickable {
 
     @Override
     public void onPick(PickBlockEvent event) {

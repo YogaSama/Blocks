@@ -10,6 +10,7 @@ import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.blocks.block.RedstoneBlock;
 import org.bukkit.Material;
 
+@Deprecated
 public class RedstoneDiodeBlock extends RedstoneBlock {
 
     public RedstoneDiodeBlock() {
@@ -21,8 +22,6 @@ public class RedstoneDiodeBlock extends RedstoneBlock {
 
     @Override
     public void onPlace(BlocksPlaceEvent event) {
-        super.onPlace(event);
-
         if (event.getMaterial() == classicItem) {
             if (event.getData() == 1) apply(event.getBlock(), off);
         }

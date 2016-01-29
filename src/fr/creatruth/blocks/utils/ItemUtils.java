@@ -12,6 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ItemUtils {
@@ -36,6 +37,12 @@ public class ItemUtils {
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(name);
         item.setItemMeta(meta);
+    }
+
+    public static void setLore(ItemStack item, String... array) {
+        ArrayList<String> lore = new ArrayList<>();
+        Collections.addAll(lore, array);
+        setLore(item, lore);
     }
 
     public static void setLore(ItemStack item, List<String> lore) {

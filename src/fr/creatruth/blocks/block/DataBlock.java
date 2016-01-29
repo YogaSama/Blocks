@@ -8,7 +8,8 @@ package fr.creatruth.blocks.block;
 
 import fr.creatruth.api.event.BlocksPlaceEvent;
 
-public class DataBlock extends BaseBlock {
+@Deprecated
+public class DataBlock extends BaseBlock implements Placeable {
 
     @Override
     public void onPlace(BlocksPlaceEvent event) {

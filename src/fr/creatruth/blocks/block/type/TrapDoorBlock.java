@@ -9,9 +9,11 @@ package fr.creatruth.blocks.block.type;
 import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.api.event.PickBlockEvent;
 import fr.creatruth.blocks.block.OrientableBlock;
+import fr.creatruth.blocks.block.Pickable;
 import org.bukkit.entity.Player;
 
-public class TrapDoorBlock extends OrientableBlock {
+@Deprecated
+public class TrapDoorBlock extends OrientableBlock implements Pickable {
 
     @Override
     public void onPlace(BlocksPlaceEvent event) {

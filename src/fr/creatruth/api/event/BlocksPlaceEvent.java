@@ -1,6 +1,6 @@
 package fr.creatruth.api.event;
 
-import fr.creatruth.development.item.ItemBuilder;
+import fr.creatruth.blocks.block.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;

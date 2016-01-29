@@ -10,14 +10,13 @@ import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.blocks.block.BaseBlock;
 import fr.creatruth.blocks.BMain;
 
+import fr.creatruth.blocks.block.Placeable;
 import org.bukkit.block.BlockFace;
 
-public class PistonExtensionBlock extends BaseBlock {
+public class PistonExtensionBlock extends BaseBlock implements Placeable {
 
     @Override
     public void onPlace(BlocksPlaceEvent event) {
-        super.onPlace(event);
-
         BlockFace face = BMain.getData(event.getPlayer()).getLastBlockFace();
         byte data = event.getData() == 0 ? (byte) 0 : 8;
 

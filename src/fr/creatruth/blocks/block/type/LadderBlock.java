@@ -10,6 +10,7 @@ import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.blocks.block.OrientableBlock;
 import fr.creatruth.blocks.BMain;
 
+@Deprecated
 public class LadderBlock extends OrientableBlock {
 
     @Override

@@ -9,7 +9,7 @@ package fr.creatruth.blocks.block;
 import fr.creatruth.api.event.BlocksPlaceEvent;
 import fr.creatruth.api.event.PickBlockEvent;
 
-public class TypeAndDataBlock extends BaseBlock {
+public class TypeAndDataBlock extends BaseBlock implements Placeable, Pickable {
 
     @Override
     public void onPick(PickBlockEvent event) {
